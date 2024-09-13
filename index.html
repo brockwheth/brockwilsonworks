@@ -10,71 +10,6 @@
             font-family: 'Helvetica Neue Thin';
             src: url('https://fonts.cdnfonts.com/s/14479/HelveticaNeue-Thin.woff') format('woff');
         }
-	/* Base styles for desktop */
-	body {
-    		font-family: 'Helvetica Neue Thin', 'Helvetica Neue', Helvetica, Arial, sans-serif;
-    		font-size: 16px; /* Base font size for desktop */
-	}
-
-	/* Media query for devices with a max-width of 768px (tablets and mobiles) */
-	@media (max-width: 768px) {
-  	body {
-      	 	 font-size: 14px; /* Smaller font size for mobile devices */
-        	line-height: 1.4; /* Adjust line height for readability */
-   	 }
-
-    	h1, h2 {
-        font-size: 18px; /* Adjust heading font sizes for mobile */
-        margin: 0.5em 0; /* Reduce margins */
-   	 }
-
-    	.container, .module, .center-module {
-        width: 100%; /* Full-width layout for smaller screens */
-        padding: 10px; /* Reduce padding */
-   	 }
-
-    	.play-title {
-        font-size: 20px; /* Adjust the font size for title */
-   	 }
-
-    	.timeline-text {
-        font-size: 12px; /* Smaller font size for text content in timelines */
-   	 }
-
-    	/* Adjust image sizes */
-   	 img {
-        max-width: 100%; /* Ensure images don’t overflow on smaller screens */
-        height: auto;
-    	}
-
-   	 /* Reduce the size of the play button */
-    	.play-title::after {
-        width: 0;
-        height: 0;
-        border-left: 10px solid transparent;
-        border-right: 10px solid transparent;
-        border-bottom: 18px solid #92969a;
-   	 }
-	}
-
-	/* Media query for devices with a max-width of 480px (smaller phones) */
-	@media (max-width: 480px) {
-  	  body {
-       	 font-size: 12px; /* Further reduce font size */
-  	  }
-
-  	  h1, h2 {
-        font-size: 16px; /* Adjust headings for small phones */
-   	 }
-
-   	 .play-title {
-        font-size: 18px; /* Adjust the play title for small screens */
-   	 }
-
-   	 .timeline-text {
-        font-size: 10px; /* Further reduce text size for timeline items */
-   	 }
-	}
 
         #Bartlett .full-spread {
    			width: 100vw; /* Full viewport width */
@@ -421,6 +356,72 @@
         .project-thumbnail:hover h2 {
             opacity: 1;
         }
+	    /* Base styles for desktop */
+	body {
+    		font-family: 'Helvetica Neue Thin', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    		font-size: 16px; /* Base font size for desktop */
+	}
+
+	/* Media query for devices with a max-width of 768px (tablets and mobiles) */
+	@media (max-width: 768px) {
+  	body {
+      	 	 font-size: 14px; /* Smaller font size for mobile devices */
+        	line-height: 1.4; /* Adjust line height for readability */
+   	 }
+
+    	h1, h2 {
+        font-size: 18px; /* Adjust heading font sizes for mobile */
+        margin: 0.5em 0; /* Reduce margins */
+   	 }
+
+    	.container, .module, .center-module {
+        width: 100%; /* Full-width layout for smaller screens */
+        padding: 10px; /* Reduce padding */
+   	 }
+
+    	.play-title {
+        font-size: 20px; /* Adjust the font size for title */
+   	 }
+
+    	.timeline-text {
+        font-size: 12px; /* Smaller font size for text content in timelines */
+   	 }
+
+    	/* Adjust image sizes */
+   	 img {
+        max-width: 100%; /* Ensure images don’t overflow on smaller screens */
+        height: auto;
+    	}
+
+   	 /* Reduce the size of the play button */
+    	.play-title::after {
+        width: 0;
+        height: 0;
+        border-left: 10px solid transparent;
+        border-right: 10px solid transparent;
+        border-bottom: 18px solid #92969a;
+   	 }
+	}
+
+	/* Media query for devices with a max-width of 480px (smaller phones) */
+	@media (max-width: 480px) {
+  	  body {
+       	 font-size: 12px; /* Further reduce font size */
+  	  }
+
+  	  h1, h2 {
+        font-size: 16px; /* Adjust headings for small phones */
+   	 }
+
+   	 .play-title {
+        font-size: 18px; /* Adjust the play title for small screens */
+   	 }
+
+   	 .timeline-text {
+        font-size: 10px; /* Further reduce text size for timeline items */
+   	 }
+	}
+
     </style>
 </head>
 
