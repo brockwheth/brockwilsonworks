@@ -420,7 +420,11 @@
    	 .timeline-text {
         font-size: 10px; /* Further reduce text size for timeline items */
    	 }
-	}
+	@media screen and (max-width: 768px) {
+    .timeline-text {
+        font-size: 12px; /* or any size appropriate for mobile */
+        line-height: 1.5; /* Adjust line spacing if necessary */
+    	}
 
     </style>
 </head>
