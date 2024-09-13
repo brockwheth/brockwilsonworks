@@ -1,0 +1,790 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Brock Hetherington, Portfolio</title>
+    <style>
+        @font-face {
+            font-family: 'Helvetica Neue Thin';
+            src: url('https://fonts.cdnfonts.com/s/14479/HelveticaNeue-Thin.woff') format('woff');
+        }
+
+        #Bartlett .full-spread {
+   			width: 100vw; /* Full viewport width */
+    		max-width: 100vw; /* Ensures it doesn’t shrink below viewport width */
+    		margin-left: calc(-50vw + 50%); /* Centers the image by negating body margin */
+    		margin-top: 20px; /* Keep this for vertical spacing */
+    		position: relative;
+		}
+
+        body {
+            font-family: 'Helvetica Neue Thin', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #ffffff;
+            color: #92969a;
+            text-transform: uppercase;
+            font-size: 100%;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+            cursor: crosshair;
+            opacity: 0;
+            transition: opacity 0.5s ease-in;
+        }
+
+        header {
+            background-color: #ffffff;
+            color: #fff;
+            padding: 40px;
+            margin-bottom: 20px;
+            margin-top: 0;
+            text-align: center;
+            position: relative;
+        }
+
+        h1,
+        h2 {
+            margin: 0;
+            font-size: 100%;
+            color: #92969a;
+            font-weight: normal;
+        }
+
+        .play-title {
+            position: relative;
+            cursor: pointer;
+        }
+
+        .play-title::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 0;
+            height: 0;
+            border-left: 15px solid transparent;
+            border-right: 15px solid transparent;
+            border-bottom: 25px solid #92969a;
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+
+        .play-title:hover::after {
+            opacity: 1;
+        }
+
+        .play-title:hover {
+            color: transparent;
+        }
+
+        .container {
+            display: flex;
+            flex: 1;
+            width: calc(100% - 4%);
+            margin: 0 2%;
+        }
+
+        .module {
+            text-align: left;
+            width: 33%;
+            margin-right: 2%;
+            padding-top: 58px;
+        }
+
+        .center-module {
+            text-align: left;
+            width: 65%;
+            padding-top: 58px;
+        }
+
+        .section-title {
+            cursor: pointer;
+            margin-bottom: 10px;
+            padding-top: 0px;
+            text-transform: uppercase;
+            font-size: 100%;
+            color: #92969a;
+        }
+
+        .section-content {
+            display: none;
+            margin-bottom: 20px;
+            font-size: 10px;
+            color: #92969a;
+            text-transform: uppercase;
+            padding-bottom: 0px;
+        }
+
+        .fade-in {
+            opacity: 0;
+            transition: opacity 0.5s ease-in;
+        }
+
+        .fade-in.show {
+            opacity: 1;
+        }
+
+        #about.section-content {
+            padding-bottom: 0;
+        }
+
+        #skills.section-content {
+            padding-bottom: 0;
+        }
+
+        .education-item {
+            margin-bottom: 10px;
+        }
+
+        .education-item-title p {
+            margin: 0;
+        }
+
+        .description {
+            margin: 0;
+            padding-left: 25px;
+            color: #428f70;
+        }
+
+        .education-item-title {
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .right-align {
+            text-align: right;
+            width: 50%;
+        }
+
+        section {
+            margin-top: 20px;
+            padding: 20px;
+            background-color: #ffffff;
+            border-radius: 5px;
+            font-size: 10px;
+        }
+
+        section a {
+            color: #92969a;
+            position: relative;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        section a:hover {
+            color: #428f70;
+            cursor: cell;
+        }
+
+        .custom-link::before {
+            content: "";
+            position: absolute;
+            width: 100%;
+            height: 2px;
+            bottom: 5px;
+            left: 0;
+            background-color: #428f70;
+            visibility: hidden;
+            transform: scaleX(0);
+            transition: all 0.3s ease-in-out;
+        }
+
+        .custom-link:hover::before {
+            visibility: visible;
+            transform: scaleX(1);
+            cursor: cell;
+        }
+
+        section div:not(.custom-link):hover {
+            color: inherit;
+        }
+
+        section .custom-link:hover div {
+            color: #428f70;
+        }
+
+        iframe {
+            width: 100%;
+            height: 600px;
+            border: none;
+        }
+
+        .timeline-container {
+            position: relative;
+            padding: 20px 0;
+            margin: 0 2%;
+        }
+
+        .timeline-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin: 20px 0;
+        }
+
+        .timeline-item img {
+            width: calc(65% - 10px);
+            height: auto;
+            border: none;
+        }
+
+        .timeline-item .timeline-text {
+            width: calc(33% - 10px);
+            text-align: justify;
+            font-size: 10px;
+            color: #92969a;
+            text-transform: uppercase;
+        }
+
+        .full-spread {
+            width: 100%;
+            margin-top: 20px;
+        }
+
+        .lightbox {
+            display: none;
+            position: fixed;
+            z-index: 999;
+            padding-top: 100px;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0, 0, 0, 0.9);
+        }
+
+        .lightbox-content {
+            margin: auto;
+            display: block;
+            width: 80%;
+            max-width: 700px;
+        }
+
+        .lightbox-close {
+            position: absolute;
+            top: 15px;
+            right: 35px;
+            color: #f1f1f1;
+            font-size: 40px;
+            font-weight: bold;
+            transition: 0.3s;
+            cursor: pointer;
+        }
+
+        .lightbox-close:hover,
+        .lightbox-close:focus {
+            color: #bbb;
+            text-decoration: none;
+            cursor: pointer;
+        }
+
+        footer {
+            color: #fff;
+            padding: 10px;
+            text-align: center;
+            margin-top: auto;
+            font-size: 8px;
+            text-transform: uppercase;
+        }
+
+        .spotlight {
+            text-align: center;
+            margin-left: -262px;
+        }
+
+        .contact-info {
+            margin-top: 20px;
+            display: flex;
+            justify-content: space-between;
+            width: 100%;
+        }
+
+        a {
+            text-decoration: none;
+        }
+
+        a:hover {
+            text-decoration: none;
+        }
+
+        .portfolio-projects {
+            display: flex;
+            justify-content: space-between;
+            margin: 40px 2%;
+            padding-top: 20px;
+            padding-bottom: 20px;
+        }
+
+        .project-thumbnail {
+            text-align: center;
+            flex: 1;
+            margin: 0 10px;
+            position: relative;
+        }
+
+        .project-thumbnail img {
+            width: 100%;
+            max-width: 200px;
+            height: auto;
+            display: block;
+            margin: 0 auto 10px;
+            transition: opacity 0.3s;
+        }
+
+        .project-thumbnail h2 {
+            font-size: 100%;
+            color: #92969a;
+            margin: 0;
+            cursor: pointer;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+
+        .project-thumbnail:hover img {
+            opacity: 0;
+        }
+
+        .project-thumbnail:hover h2 {
+            opacity: 1;
+        }
+    </style>
+</head>
+
+<body onload="document.body.style.opacity='1'">
+    <header>
+        <h1 class="play-title" onclick="togglePlayPause()" title="play">BROCK WILSON HETHERINGTON</h1>
+        <audio id="background-audio" src="oldmanandthewoodpecker.wav" preload="auto"></audio>
+    </header>
+
+    <h2 class="section-title" style="margin-left: 2%;" onclick="toggleSection('cv-resume')">CV</h2>
+    <div id="cv-resume" class="section-content fade-in">
+        <div class="container">
+            <div class="module">
+                <h2 class="section-title" onclick="toggleSection('about')">About</h2>
+                <div id="about" class="section-content fade-in">
+                    <section class="centered-text">
+                        <div class="centered-text-content" style="display: inline-block; text-align: justify;">
+                            
+                            <p>
+                                My name is Brock, and I am a third-year student at the University of
+                                Technology, Sydney, pursuing a Bachelor of Design in Architecture,
+                                intending to move into bio-integrated design or architecture &
+                                engineering for postgraduate studies. Beyond my academic
+                                engagement, I produce and write music under my name, Brock
+                                Wilson, and have been doing so for close to 8 years. In addition
+                                to architecture and music, my appreciation for creativity extends to
+                                art, bouldering, chess, design, and sciences. This portfolio displays
+                                a selection of my favorite academic work & ideas, please enjoy.
+                            </p>
+                            <p class="contact-info">
+                                <a href="mailto:brockwheth@gmail.com">brockwheth@gmail.com</a>
+                                <span></span>
+                                <span>GLEBE, NSW</span>
+                            </p>
+                        </div>
+                    </section>
+                </div>
+            </div>
+
+            <div class="center-module">
+                <!-- Education Header -->
+                <h2 class="section-title" onclick="toggleSection('education')">Education</h2>
+                <div id="education" class="section-content fade-in">
+                    <div class="education-item">
+                        <div class="education-item-title">
+                            <p>Bachelor of Design in Architecture (6.3/7 GPA - ongoing)</p>
+                            <p class="right-align">University of Technology, Sydney<br>2023/2025</p>
+                        </div>
+                         <p class="description">Student representative: bi-weekly meetings with course coodinator to discuss student concerns to improve student experience & course quality</p>
+                        <p class="description">Peer tutor for Architectural History & Theory: Urbanism (assisting second-year students with research, writing & conceptual framework)</p>
+
+                    </div>
+                     <div class="education-item">
+                        <div class="education-item-title">
+                            <p>"Creative Terrain", short course (certificate))</p>
+                            <p class="right-align">Bartlett School of Architecture, London<br>2024</p>
+                        </div>
+                        <p class="description">One week collaborative landscape architecture workshop, speculating possible formal inerventions within Lee Valley, UK </p>
+                    </div>
+                    <div class="education-item">
+                        <div class="education-item-title">
+                            <p>Diploma of Design and Architecture (6.8/7 GPA)</p>
+                            <p class="right-align">University of Technology, Sydney, College<br>2021/2022</p>
+                        </div>
+                        <p class="description">Recipient of “Outstanding Graduate Award”, and “Dean’s Merrit Award”</p>
+                    </div>
+                    <div class="education-item">
+                        <div class="education-item-title">
+                            <p>Diploma of Audio Engineering & Music Production (4/4 GPA)</p>
+                            <p class="right-align">Nimbus School of Recording Arts, Vancouver<br>2017/2018</p>
+                        </div>
+                        <p class="description">Commended with written recommendations from founders and instructors</p>
+                    </div>
+                </div>
+                <!-- PROFESSIONAL ROLES Header -->
+                <h2 class="section-title" onclick="toggleSection('professional')">Professional and Leadership Roles</h2>
+                <div id="professional" class="section-content fade-in">
+                    <div class="education-item">
+                        <div class="education-item-title">
+                            <p>"Super Studio" Architecture Competition</p>
+                            <p class="right-align">Australian Institute of Architects <br>2024</p>
+                        </div>
+                        <p class="description">A one week intensive architecture competition through the AIA, with fellow classmates Christopher Fares and Elijah Marlow</p>
+                    </div>
+                    <div class="education-item">
+                        <div class="education-item-title">
+                            <p>President of UTS Chess Club</p>
+                            <p class="right-align">University of Technology, Sydney<br>2022/2023</p>
+                        </div>
+                        <p class="description">Responsible for organizing and planning events, meets and tournaments. Doubled memberships and club profits</p>
+                    </div>
+                    <div class="education-item">
+                        <div class="education-item-title">
+                            <p>Student Consultant for Accessibility Services at UTS</p>
+                            <p class="right-align">University of Technology, Sydney, Student Services Unit <br>2023</p>
+                        </div>
+                        <p class="description">Collaborating with registered students to provide feedback to improve inclusive teaching practices at UTS</p>
+                    </div>
+                    <div class="education-item">
+                        <div class="education-item-title">
+                            <p>Brock Wilson</p>
+                            <p class="right-align">Brock Wilson<br>2017/present</p>
+                        </div>
+                        <p class="description">Songwriter/producer recording artist with 8 years exp., 10+ million streams on Spotify, & work with Grammy nominated artists</p>
+                    </div>
+                </div>
+
+                <!-- References Header -->
+                <h2 class="section-title" onclick="toggleSection('references')">References</h2>
+                <div id="references" class="section-content fade-in">
+                    <div class="education-item">
+                        <div class="education-item-title">
+                            <p>Alex Seo, PhD - Architect, Historian & Theorist, Academic Tutor & Coordinator at UTS</p>
+                            <p class="right-align"><a href="mailto:alex.seo@unimelb.edu.au" style="color: #92969a; text-transform: lowercase;">alex.seo@unimelb.edu.au</a></p>
+                        </div>
+                        <div class="education-item-title">
+                            <p>Stefan Joksić - Architect & Urban Designer, Academic Tutor at UTS</p>
+                            <p class="right-align"><a href="mailto:stefan.joksic@uts.edu.au" style="color: #92969a; text-transform: lowercase;">stefan.joksic@uts.edu.au</a></p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Skills, Softwares Header -->
+                <h2 class="section-title" onclick="toggleSection('skills')">Skills, Softwares</h2>
+                <div id="skills" class="section-content fade-in no-padding">
+                    <div class="education-item">
+                        <div class="education-item-title">
+                            <p>Adobe CC - Photoshop, Indesign, (proficient) Illustrator, Premiere (intermediate)</p>
+                            <p class="right-align">Integrated Thinker - Able to find innovative solutions drawing from multiple disciplines</p>
+                        </div>
+                        <div class="education-item-title">
+                            <p>BIM/rendering - Rhino, Enscape, Twinmortion (proficient) Autocad, Sketchup (intermediate)</p>
+                            <p class="right-align">Proficient Writer - Excellent writing skills, theoretical synthesis & application</p>
+                        </div>
+                        <div class="education-item-title">
+                            <p>Scripting/markup - Grasshopper, TouchDesigner, HTML, CSS, Java (beginner)</p>
+                            <p class="right-align">Quick & Eager Study - Able to grasp new concepts quickly with a genuine interest</p>
+                        </div>
+                        <div class="education-item-title">
+                            <p>Audio, other - Ableton Live + other DAWs, CapCut (proficient)</p>
+                            <p class="right-align">Ambitious & Driven - Work hard to pursue & achieve personal & professional goals</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="timeline-container">
+        <h2 class="section-title" style="margin-left: 0%;" onclick="toggleSection('projects')">PROJECTS</h2>
+        <div id="projects" class="section-content fade-in">
+            <div class="portfolio-projects">
+            	<div class="project-thumbnail" onclick="toggleSection('Bartlett')">
+        			<img src="BartlettThumbnail.png" alt="New Project">
+       				 <h2>"CREATIVE TERRAIN"<br>2024 BARTLETT SHORT COURSE</h2>
+   				 </div>
+                <div class="project-thumbnail" onclick="toggleSection('equal-parts')">
+                    <img src="kitethumbnail.png" alt="Equal Parts">
+                    <h2>"EQUAL PARTS: A PRIMARY SCHOOL FOR EVERY INTELLIGENCE"<br>2024  STUDIO 5  </h2>
+                </div>
+                <div class="project-thumbnail" onclick="toggleSection('second-project')">
+                    <img src="stepwellthumbnail.png" alt="Stepwell Student Housing">
+                    <h2>"STEPWELL STUDENT HOUSING"<br>2023  STUDIO 4  </h2>
+                </div>
+                <div class="project-thumbnail" onclick="toggleSection('third-project')">
+                    <img src="houseprojectthumbnail.jpeg" alt="House Project">
+                    <h2>"HOUSE PROJECT" <br>2022  STUDIO 2 </h2>
+                </div>
+                <div class="project-thumbnail" onclick="toggleSection('fourth-project')">
+                    <img src="rooftopthumbnail.jpeg" alt="Rooftop Canopy">
+                    <h2>"ROOFTOP CANOPY (REPORT)" <br> 2024  LIGHTING, ACOUSTICS, & ADVANCED ENVIRONMENTAL CONTROL</h2>
+                </div>
+            </div>
+            <div id="Bartlett" class="section-content fade-in">
+                <div class="timeline-item">
+                    <img src="BartlettCollage.jpeg" alt="Full Spread Image" class="full-spread" onclick="openLightbox(this)">  
+                    </div>
+                </div>
+
+            <div id="equal-parts" class="section-content fade-in">
+                <div class="timeline-item">
+                    <img src="b&wiso.jpeg" alt="Portfolio Image 1" onclick="openLightbox(this)">
+                    <div class="timeline-text">
+                        My personal experience with formal education
+                        environments has been a bit rocky, and creating a
+                        primary school that focuses on fostering individuality and
+                        equality between students was, and will continue to be,
+                        of utmost importance to me. By integrating elements of
+                        Montessori pedagogy and Multiple Intelligence theory
+                        into the design of the school from the start, the project
+                        ensures an environment that caters to the individual
+                        needs of each and every student, rather than a typical
+                        one-size-fits-all curriculum. 
+                        <br>
+                        <br>
+                        PROJECT TIMELINE: FEBRUARY 2024 - MAY 2024
+                        <br>
+                        MODEL TIMELINE: 5 DAYS, MAY 2024
+                    </div>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="timeline-text">
+                        The classroom clusters best illustrate these principles; students who are
+                        more socially inclined can joyfully communicate between classrooms. The
+                        space created by lifting the clusters off the ground provides a covered
+                        outdoor learning area for students with a naturalistic inclination. Visuo-
+                        spatial students have a field day exploring the elevational changes within
+                        the classroom. Body/kinesthetic students can engage tactically with
+                        material and textural variances. Essentially, the classroom is designed with
+                        every intelligence type in mind, ensuring that it becomes a place where
+                        diversity is celebrated, potential is recognized, and weaknesses are cared
+                        for.
+                        <br>
+                        <br>
+                        DRAWING(s) TIMELINE: MARCH 2024 - MAY 2024
+                          <br>
+                            PLANS, ISOMETRIC & SECTION: MARCH - APRIL 2024
+                              <br>
+                            MASTERPLAN - MAY 2024
+
+
+                    </div>
+                    <img src="PerspectivePlanA4.png" alt="Portfolio Image 2" onclick="openLightbox(this)">
+                </div>
+
+                <img src="PerspectiveSectionA4.png" alt="Full Spread Image" class="full-spread" onclick="openLightbox(this)">
+
+                <img src="MasterPlanA4.png" alt="Second Full Spread Image" class="full-spread" onclick="openLightbox(this)">
+
+                <div class="timeline-item">
+                    <img src="CivicCentrePerspective.jpeg" alt="Portfolio Image 1" onclick="openLightbox(this)">
+                    <div class="timeline-text">
+                        The most public feature of the school sits on the northeast corner of the
+                        site, inviting parents to participate in the school’s philosophy. The top floor
+                        consists of small pods and a desk that faces the school field and classroom
+                        clusters, acting as a shared workspace for the parents. This creates a
+                        place for parents with children who may need extra assistance to be
+                        nearby. Beneath the shared workspace is a public forum, or multipurpose
+                        hall, giving the newly developed Green Square a civic centre. The ground
+                        floor houses the school’s assembly hall. The building is constructed almost
+                        entirely from glue-laminated timber and CLT, with the only exceptions being
+                        joinery and the concrete base.
+                        <br>
+                        <br>
+                        DRAWING TIMELINE: MAY 2024
+                    </div>
+                </div>
+            </div>
+
+            <div id="second-project" class="section-content fade-in">
+                <!-- Add content for the second project here -->
+                <div class="timeline-item">
+                    <img src="b&wstepwellmodel.jpeg" alt="Stepwell Student Housing Image 1" onclick="openLightbox(this)">
+                    <div class="timeline-text">
+                        Student accommodations have the potential to create
+                        an intellectually and socially stimulating environment.
+                        However, they can also become isolating, expensive,
+                        and overly focused on efficiency, reflecting developers’
+                        priorities and profit optimization rather than addressing
+                        the individual and collective needs of students. A strategy
+                        to enhance the student experience is to incorporate
+                        qualities derived from an established restorative program,
+                        such as a stepwell. Originally designed for harvesting,
+                        collecting, and storing water in arid regions of India,
+                        stepwells have evolved into architectural celebrations of
+                        community. <br>
+                        <br>
+                        Images display individual contributions to a group project with fellow students Joshua Dambiec & Kathryn Du Pre le Roux. Model was a group effort.
+                        <br>
+                        <br>
+                        PROJECT TIMELINE: AUGUST 2023 - NOV 2023
+                        <br>
+                        MODEL TIMELINE: 1 WEEK, NOV 2023
+
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-text">
+                        While a source of water is the most essential component of a stepwell in its most primitive form, they’ve now become more socially oriented. Part of this shift was the way they’ve been articulated. By creating a labyrinth of staircases, it allowed the user to curate their own experience. To seek sun or shade, to find the best spot for a cool breeze - it empowers them. The concept of utilizing steps as a means of organizing and empowering social spaces holds particular relevance for students. Implementing such a repetitive organizational scheme promises to introduce variation in movement, foster dynamic social engagement, and instill an explorative spirit among the student community.
+                        <br>
+                        <br>
+                        DIAGRAMS, ISOMETRIC TIMELINE: OCTOBER 2023 - NOV 2023
+
+                    </div>
+                    <img src="stepwelldiagram.png" alt="Stepwell Student Housing Image 2" onclick="openLightbox(this)">
+                </div>
+                <img src="reveng.png" alt="Full Spread Image" class="full-spread" onclick="openLightbox(this)">
+
+                <img src="stepwellelevation_side.png" alt="Second Full Spread Image" class="full-spread" onclick="openLightbox(this)">
+
+                <div class="timeline-item">
+                    <img src="stepwellelevation_back.png" alt="Stepwell Student Housing Image 1" onclick="openLightbox(this)">
+                    <div class="timeline-text">
+                        While the external central staircase offers a sprawling landscape of social
+                        opportunities, the main study and creative spaces, kitchens, and laundries
+                        are situated within an open plane enclosed by a timber slat system.
+                        This design provides a tranquil retreat from the dynamic energy of the
+                        steps. Incisions through the slats reveal the only social moments within
+                        those spaces, at times tracing the contour of the staircase as a symbolic
+                        representation of their social power.
+                        <br>
+                        <br>
+                        ELEVATIONS TIMELINE: NOV 2023
+                    </div>
+                </div>
+            </div>
+            <div id="third-project" class="section-content fade-in">
+                <!-- Add content for the third project here -->
+                <div class="timeline-item">
+                    <img src="noisyhouseprojectmodel.jpeg" alt="House Project Image 1" onclick="openLightbox(this)">
+                    <div class="timeline-text">
+                        The “House Project” brief aimed to disrupt the conventional
+                        features of a typical suburban family home through a series
+                        of radical incisions. The goal was to uncover possibilities
+                        within the transformed space to accommodate the
+                        anticipated turnover of occupants. I approached these
+                        interventions as a way to encourage creative behavior,
+                        fostering a connection with nature within the home,
+                        enabling seamless bleed between domestic programs,
+                        and crafting versatile spaces capable of adapting to
+                        future changes.
+                        <br>
+                        <br>
+                        PROJECT TIMELINE: AUGUST 2022 - NOV 2022
+                         <br>
+                        MODEL TIMELINE: 2 DAYS, NOV 2022
+
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-text">
+                        The design process began with an exhaustive cycle of iteration, involving
+                        numerous tracings and handheld models, ultimately leading to the
+                        selection of the final design. The implemented incisions, although highly
+                        intrusive, created a unique sequence of movement that enabled nature
+                        to penetrate deep into the house, fostering a conducive environment for
+                        the occupants’ creative pursuits. The final plans showcase a modular and
+                        irregular composition, ensuring the adaptability of the house for future
+                        generations of creators.
+                        <br>
+                        <br>
+                        PROJECT TIMELINE: AUGUST 2022 - NOV 2022
+                        <br>
+                        ITERATION: OVER SEMESTER
+                        <br>
+                        SECTION: NOV 2022
+                        <br>
+                        PLANS: NOV 2022
+                    </div>
+                    <img src="iterations.jpeg" alt="House Project Image 2" onclick="openLightbox(this)">
+                </div>
+                <img src="Jan 12 section.png" alt="Full Spread Image" class="full-spread" onclick="openLightbox(this)">
+
+                <img src="5yearplan.jpeg" alt="Second Full Spread Image" class="full-spread" onclick="openLightbox(this)">
+            </div>
+
+            <div id="fourth-project" class="section-content fade-in">
+                <!-- Add content for the fourth project here -->
+                <div class="timeline-item">
+                    <img src="rooftoprender.jpeg" alt="Rooftop Canopy Image 1" onclick="openLightbox(this)">
+                    <div class="timeline-text">
+                        BELOW IS A SELECTION OF SLIDES FROM A DESIGN REPORT. THE CANOPY WAS THE INDIVIDUAL CONTRIBUTION TO PART OF A LARGER GROUP PROJECT. THE REPORT COVERS ADVANCED METHODS OF MEASURING AND MITIGATING THE ACOUSTIC ENVIRONMENT, A DETAILED LIGHTING LEGEND, AND THE THERMAL QUALITIES OF THE INTERVENTION.
+                    </div>
+                </div>
+                
+                    <img src="Thermalstuff.jpeg" alt="Second Full Spread Image" class="full-spread" onclick="openLightbox(this)">
+                    <img src="Acoustic_Calcs.jpeg" alt="Second Full Spread Image" class="full-spread" onclick="openLightbox(this)">
+                    <img src="Lighting_legend.jpeg" alt="Second Full Spread Image" class="full-spread" onclick="openLightbox(this)">
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="lightbox" class="lightbox" onclick="closeLightbox()">
+        <span class="lightbox-close" onclick="closeLightbox()">&times;</span>
+        <img class="lightbox-content" id="lightbox-image">
+    </div>
+
+    <footer>
+        <p>&copy; 2024 BROCK WILSON HETHERINGTON. ALL RIGHTS RESERVED.</p>
+    </footer>
+
+    <script>
+        function togglePlayPause() {
+            var audio = document.getElementById('background-audio');
+            if (audio.paused) {
+                audio.play();
+            } else {
+                audio.pause();
+            }
+        }
+
+        function toggleSection(sectionId) {
+            var section = document.getElementById(sectionId);
+            if (section.style.display === 'none' || section.style.display === '') {
+                section.style.display = 'block';
+                setTimeout(function() {
+                    section.classList.add('show');
+                }, 10); // Add a small delay to ensure the display change takes effect
+            } else {
+                section.classList.remove('show');
+                setTimeout(function() {
+                    section.style.display = 'none';
+                }, 500); // Match this to the fade-in time
+            }
+        }
+
+        function openLightbox(img) {
+            var lightbox = document.getElementById('lightbox');
+            var lightboxImg = document.getElementById('lightbox-image');
+            lightbox.style.display = 'block';
+            lightboxImg.src = img.src;
+        }
+
+        function closeLightbox() {
+            var lightbox = document.getElementById('lightbox');
+            lightbox.style.display = 'none';
+        }
+
+        document.querySelectorAll('#references a').forEach(function(link) {
+            link.addEventListener('mouseover', function() {
+                this.style.color = '#428f70';
+            });
+            link.addEventListener('mouseout', function() {
+                this.style.color = '#92969a';
+            });
+        });
+    </script>
+</body>
+
+</html>
