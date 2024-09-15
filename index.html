@@ -7,14 +7,14 @@
 
     <!-- Open Graph Meta Tags for Social Sharing -->
     <meta property="og:title" content="brockwilsonworks">
-    <meta property="og:description" content="Explore the architectural portfolio of Brock Hetherington">
+    <meta property="og:description" content="Explore the creative portfolio of Brock Hetherington, including architectural projects, music production, and more.">
     <meta property="og:image" content="https://brockwilsonworks.com/WebsiteThumbnail.png">
     <meta property="og:url" content="https://brockwilsonworks.com/">
     <meta property="og:type" content="website">
     
     <meta property="twitter:card" content="summary_large_image">
     <meta property="twitter:title" content="brockwilsonworks">
-    <meta property="twitter:description" content="Explore the architectural portfolio of Brock Hetherington">
+    <meta property="twitter:description" content="Explore the creative portfolio of Brock Hetherington, including architectural projects, music production, and more.">
     <meta property="twitter:image" content="https://brockwilsonworks.com/WebsiteThumbnail.png">
 
     <title>Brock Hetherington, Portfolio</title>
@@ -23,7 +23,7 @@
             font-family: 'Helvetica Neue Thin';
             src: url('https://fonts.cdnfonts.com/s/14479/HelveticaNeue-Thin.woff') format('woff');
         }
-        
+
         #social-condenser .full-spread {
             width: 100vw; /* Full viewport width */
             max-width: 100vw; /* Ensures it doesn’t shrink below viewport width */
@@ -411,6 +411,12 @@
         }
 
         /* Media Queries for Responsive Font Sizes */
+        #about .centered-text-content p,
+        #education .education-item-title p,
+        #education .description {
+            font-size: 2vw; /* Responsive text size based on viewport width */
+            line-height: 1.5;
+        }   
         html {
             font-size: 16px;
         }
@@ -450,7 +456,21 @@
         .highlight-green {
             color: #428f70; /* The same green used elsewhere in the document */
         }
-        
+        @media (min-width: 1000px) {
+            #about .centered-text-content p,
+             #education .education-item-title p,
+            #education .description {
+        font-size: 16px; /* Adjust font size for desktop and larger screens */
+        }
+        }
+
+        @media (max-width: 1000px) {
+        #about .centered-text-content p,
+        #education .education-item-title p,
+        #education .description {
+        font-size: 12px; /* Smaller text for mobile devices */
+        }
+        }
     </style>
 </head>
 
