@@ -181,8 +181,9 @@
             opacity: 1;
         }
 
-        #about.section-content {
-            padding-bottom: 0;
+        #about .centered-text {
+            margin-left: 0%; /* Match the margin of the section title */
+            padding-left: 0; /* Ensure no extra padding */
         }
 
         #skills.section-content {
@@ -410,12 +411,6 @@
             opacity: 1;
         }
 
-        /* Media Queries for Responsive Font Sizes */
-        #about .centered-text-content p,
-        #education .education-item-title p,
-        #education .description {
-            font-size: 2vw; /* Responsive text size based on viewport width */
-            line-height: 1.5;
         }   
         html {
             font-size: 16px;
@@ -452,25 +447,16 @@
             .container {
                 flex-direction: column;
             }
+
         }
         .highlight-green {
             color: #428f70; /* The same green used elsewhere in the document */
         }
-        @media (min-width: 1000px) {
-            #about .centered-text-content p,
-             #education .education-item-title p,
-            #education .description {
-        font-size: 16px; /* Adjust font size for desktop and larger screens */
+        .section-content p {
+            font-size: 14px; /* or use the font-size you're using for other sections */
+            line-height: 1.5;
         }
-        }
-
-        @media (max-width: 1000px) {
-        #about .centered-text-content p,
-        #education .education-item-title p,
-        #education .description {
-        font-size: 12px; /* Smaller text for mobile devices */
-        }
-        }
+        
     </style>
 </head>
 
