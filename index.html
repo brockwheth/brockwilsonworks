@@ -166,10 +166,10 @@
         .section-content {
             display: none;
             margin-bottom: 20px;
-            font-size: 10px;
             color: #92969a;
             text-transform: uppercase;
             padding-bottom: 0px;
+            font-size: inherit; /* Inherit font size to match the global scaling */
         }
 
         .fade-in {
@@ -408,6 +408,44 @@
 
         .project-thumbnail:hover h2 {
             opacity: 1;
+        }
+
+        /* Media Queries for Responsive Font Sizes */
+        html {
+            font-size: 16px;
+        }
+
+        @media (max-width: 1200px) {
+            html {
+                font-size: 14px;
+            }
+        }
+
+        @media (max-width: 992px) {
+            html {
+                font-size: 12px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            html {
+                font-size: 10px;
+            }
+            .module, .center-module {
+                width: 100%;
+            }
+        }
+
+        @media (max-width: 576px) {
+            html {
+                font-size: 8px;
+            }
+            header {
+                padding: 20px;
+            }
+            .container {
+                flex-direction: column;
+            }
         }
     </style>
 </head>
