@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    
+
     <!-- Open Graph Meta Tags for Social Sharing -->
     <meta property="og:title" content="Brock Hetherington, Portfolio">
     <meta property="og:description" content="Explore the creative portfolio of Brock Hetherington, including architectural projects, music production, and more.">
@@ -33,6 +33,38 @@
          }
 
         #Bartlett .full-spread {
+            width: 100vw; /* Full viewport width */
+            max-width: 100vw; /* Ensures it doesn’t shrink below viewport width */
+            margin-left: calc(-50vw + 50%); /* Centers the image by negating body margin */
+            margin-top: 20px; /* Keep this for vertical spacing */
+            position: relative;
+        }
+
+        #equal-parts .full-spread {
+            width: 100vw; /* Full viewport width */
+            max-width: 100vw; /* Ensures it doesn’t shrink below viewport width */
+            margin-left: calc(-50vw + 50%); /* Centers the image by negating body margin */
+            margin-top: 20px; /* Keep this for vertical spacing */
+            position: relative;
+        }
+
+        #stepwell .full-spread {
+            width: 100vw; /* Full viewport width */
+            max-width: 100vw; /* Ensures it doesn’t shrink below viewport width */
+            margin-left: calc(-50vw + 50%); /* Centers the image by negating body margin */
+            margin-top: 20px; /* Keep this for vertical spacing */
+            position: relative;
+        }
+
+        #houseproject .full-spread {
+            width: 100vw; /* Full viewport width */
+            max-width: 100vw; /* Ensures it doesn’t shrink below viewport width */
+            margin-left: calc(-50vw + 50%); /* Centers the image by negating body margin */
+            margin-top: 20px; /* Keep this for vertical spacing */
+            position: relative;
+        }
+
+        #thermal .full-spread {
             width: 100vw; /* Full viewport width */
             max-width: 100vw; /* Ensures it doesn’t shrink below viewport width */
             margin-left: calc(-50vw + 50%); /* Centers the image by negating body margin */
@@ -531,7 +563,7 @@
             <div class="portfolio-projects">
                 <div class="project-thumbnail" onclick="toggleSection('social-condenser')">
                     <img src="processthumbnail.png" alt="Process">
-                     <h2>"SOCIAL CONDENSER (process)"<br>2024 STUDIO 6</h2>
+                     <h2>"SOCIAL CONDENSER (ongoing process)"<br>2024 STUDIO 6</h2>
                  </div>
                 <div class="project-thumbnail" onclick="toggleSection('Bartlett')">
                     <img src="BartlettThumbnail.png" alt="New Project">
@@ -541,15 +573,15 @@
                     <img src="kitethumbnail.png" alt="Equal Parts">
                     <h2>"EQUAL PARTS: A PRIMARY SCHOOL FOR EVERY INTELLIGENCE"<br>2024  STUDIO 5  </h2>
                 </div>
-                <div class="project-thumbnail" onclick="toggleSection('second-project')">
+                <div class="project-thumbnail" onclick="toggleSection('stepwell')">
                     <img src="stepwellthumbnail.png" alt="Stepwell Student Housing">
                     <h2>"STEPWELL STUDENT HOUSING"<br>2023  STUDIO 4  </h2>
                 </div>
-                <div class="project-thumbnail" onclick="toggleSection('third-project')">
+                <div class="project-thumbnail" onclick="toggleSection('houseproject')">
                     <img src="houseprojectthumbnail.jpeg" alt="House Project">
                     <h2>"HOUSE PROJECT" <br>2022  STUDIO 2 </h2>
                 </div>
-                <div class="project-thumbnail" onclick="toggleSection('fourth-project')">
+                <div class="project-thumbnail" onclick="toggleSection('thermal')">
                     <img src="rooftopthumbnail.jpeg" alt="Rooftop Canopy">
                     <h2>"ROOFTOP CANOPY (REPORT)" <br> 2024  LIGHTING, ACOUSTICS, & ADVANCED ENVIRONMENTAL CONTROL</h2>
                 </div>
@@ -564,198 +596,27 @@
                     <img src="BartlettCollage.jpeg" alt="Full Spread Image" class="full-spread" onclick="openLightbox(this)">  
                     </div>
                 </div>
-
             <div id="equal-parts" class="section-content fade-in">
                 <div class="timeline-item">
-                    <img src="b&wiso.jpeg" alt="Portfolio Image 1" onclick="openLightbox(this)">
-                    <div class="timeline-text">
-                        My personal experience with formal education
-                        environments has been a bit rocky, and creating a
-                        primary school that focuses on fostering individuality and
-                        equality between students was, and will continue to be,
-                        of utmost importance to me. By integrating elements of
-                        Montessori pedagogy and Multiple Intelligence theory
-                        into the design of the school from the start, the project
-                        ensures an environment that caters to the individual
-                        needs of each and every student, rather than a typical
-                        one-size-fits-all curriculum. 
-                        <br>
-                        <br>
-                        PROJECT TIMELINE: FEBRUARY 2024 - MAY 2024
-                        <br>
-                        MODEL TIMELINE: 5 DAYS, MAY 2024
+                    <img src="PrimarySchoolCollage.jpeg" alt="Full Spread Image" class="full-spread" onclick="openLightbox(this)">  
                     </div>
                 </div>
-
+            <div id="stepwell" class="section-content fade-in">
                 <div class="timeline-item">
-                    <div class="timeline-text">
-                        The classroom clusters best illustrate these principles; students who are
-                        more socially inclined can joyfully communicate between classrooms. The
-                        space created by lifting the clusters off the ground provides a covered
-                        outdoor learning area for students with a naturalistic inclination. Visuo-
-                        spatial students have a field day exploring the elevational changes within
-                        the classroom. Body/kinesthetic students can engage tactically with
-                        material and textural variances. Essentially, the classroom is designed with
-                        every intelligence type in mind, ensuring that it becomes a place where
-                        diversity is celebrated, potential is recognized, and weaknesses are cared
-                        for.
-                        <br>
-                        <br>
-                        DRAWING(s) TIMELINE: MARCH 2024 - MAY 2024
-                          <br>
-                            PLANS, ISOMETRIC & SECTION: MARCH - APRIL 2024
-                              <br>
-                            MASTERPLAN - MAY 2024
-
-
+                    <img src="StepwellCollage.jpeg" alt="Full Spread Image" class="full-spread" onclick="openLightbox(this)">  
                     </div>
-                    <img src="PerspectivePlanA4.png" alt="Portfolio Image 2" onclick="openLightbox(this)">
                 </div>
-
-                <img src="PerspectiveSectionA4.png" alt="Full Spread Image" class="full-spread" onclick="openLightbox(this)">
-
-                <img src="MasterPlanA4.png" alt="Second Full Spread Image" class="full-spread" onclick="openLightbox(this)">
-
+             <div id="houseproject" class="section-content fade-in">
                 <div class="timeline-item">
-                    <img src="CivicCentrePerspective.jpeg" alt="Portfolio Image 1" onclick="openLightbox(this)">
-                    <div class="timeline-text">
-                        The most public feature of the school sits on the northeast corner of the
-                        site, inviting parents to participate in the school’s philosophy. The top floor
-                        consists of small pods and a desk that faces the school field and classroom
-                        clusters, acting as a shared workspace for the parents. This creates a
-                        place for parents with children who may need extra assistance to be
-                        nearby. Beneath the shared workspace is a public forum, or multipurpose
-                        hall, giving the newly developed Green Square a civic centre. The ground
-                        floor houses the school’s assembly hall. The building is constructed almost
-                        entirely from glue-laminated timber and CLT, with the only exceptions being
-                        joinery and the concrete base.
-                        <br>
-                        <br>
-                        DRAWING TIMELINE: MAY 2024
+                    <img src="HouseProjectCollage.png" alt="Full Spread Image" class="full-spread" onclick="openLightbox(this)">  
                     </div>
                 </div>
-            </div>
-
-            <div id="second-project" class="section-content fade-in">
-                <!-- Add content for the second project here -->
+            <div id="thermal" class="section-content fade-in">
                 <div class="timeline-item">
-                    <img src="b&wstepwellmodel.jpeg" alt="Stepwell Student Housing Image 1" onclick="openLightbox(this)">
-                    <div class="timeline-text">
-                        Student accommodations have the potential to create
-                        an intellectually and socially stimulating environment.
-                        However, they can also become isolating, expensive,
-                        and overly focused on efficiency, reflecting developers’
-                        priorities and profit optimization rather than addressing
-                        the individual and collective needs of students. A strategy
-                        to enhance the student experience is to incorporate
-                        qualities derived from an established restorative program,
-                        such as a stepwell. Originally designed for harvesting,
-                        collecting, and storing water in arid regions of India,
-                        stepwells have evolved into architectural celebrations of
-                        community. <br>
-                        <br>
-                        Images display individual contributions to a group project with fellow students Joshua Dambiec & Kathryn Du Pre le Roux. Model was a group effort.
-                        <br>
-                        <br>
-                        PROJECT TIMELINE: AUGUST 2023 - NOV 2023
-                        <br>
-                        MODEL TIMELINE: 1 WEEK, NOV 2023
-
+                    <img src="ThermalCollage.jpeg" alt="Full Spread Image" class="full-spread" onclick="openLightbox(this)">  
                     </div>
                 </div>
-                <div class="timeline-item">
-                    <div class="timeline-text">
-                        While a source of water is the most essential component of a stepwell in its most primitive form, they’ve now become more socially oriented. Part of this shift was the way they’ve been articulated. By creating a labyrinth of staircases, it allowed the user to curate their own experience. To seek sun or shade, to find the best spot for a cool breeze - it empowers them. The concept of utilizing steps as a means of organizing and empowering social spaces holds particular relevance for students. Implementing such a repetitive organizational scheme promises to introduce variation in movement, foster dynamic social engagement, and instill an explorative spirit among the student community.
-                        <br>
-                        <br>
-                        DIAGRAMS, ISOMETRIC TIMELINE: OCTOBER 2023 - NOV 2023
 
-                    </div>
-                    <img src="stepwelldiagram.png" alt="Stepwell Student Housing Image 2" onclick="openLightbox(this)">
-                </div>
-                <img src="reveng.png" alt="Full Spread Image" class="full-spread" onclick="openLightbox(this)">
-
-                <img src="stepwellelevation_side.png" alt="Second Full Spread Image" class="full-spread" onclick="openLightbox(this)">
-
-                <div class="timeline-item">
-                    <img src="stepwellelevation_back.png" alt="Stepwell Student Housing Image 1" onclick="openLightbox(this)">
-                    <div class="timeline-text">
-                        While the external central staircase offers a sprawling landscape of social
-                        opportunities, the main study and creative spaces, kitchens, and laundries
-                        are situated within an open plane enclosed by a timber slat system.
-                        This design provides a tranquil retreat from the dynamic energy of the
-                        steps. Incisions through the slats reveal the only social moments within
-                        those spaces, at times tracing the contour of the staircase as a symbolic
-                        representation of their social power.
-                        <br>
-                        <br>
-                        ELEVATIONS TIMELINE: NOV 2023
-                    </div>
-                </div>
-            </div>
-            <div id="third-project" class="section-content fade-in">
-                <!-- Add content for the third project here -->
-                <div class="timeline-item">
-                    <img src="noisyhouseprojectmodel.jpeg" alt="House Project Image 1" onclick="openLightbox(this)">
-                    <div class="timeline-text">
-                        The “House Project” brief aimed to disrupt the conventional
-                        features of a typical suburban family home through a series
-                        of radical incisions. The goal was to uncover possibilities
-                        within the transformed space to accommodate the
-                        anticipated turnover of occupants. I approached these
-                        interventions as a way to encourage creative behavior,
-                        fostering a connection with nature within the home,
-                        enabling seamless bleed between domestic programs,
-                        and crafting versatile spaces capable of adapting to
-                        future changes.
-                        <br>
-                        <br>
-                        PROJECT TIMELINE: AUGUST 2022 - NOV 2022
-                         <br>
-                        MODEL TIMELINE: 2 DAYS, NOV 2022
-
-                    </div>
-                </div>
-                <div class="timeline-item">
-                    <div class="timeline-text">
-                        The design process began with an exhaustive cycle of iteration, involving
-                        numerous tracings and handheld models, ultimately leading to the
-                        selection of the final design. The implemented incisions, although highly
-                        intrusive, created a unique sequence of movement that enabled nature
-                        to penetrate deep into the house, fostering a conducive environment for
-                        the occupants’ creative pursuits. The final plans showcase a modular and
-                        irregular composition, ensuring the adaptability of the house for future
-                        generations of creators.
-                        <br>
-                        <br>
-                        PROJECT TIMELINE: AUGUST 2022 - NOV 2022
-                        <br>
-                        ITERATION: OVER SEMESTER
-                        <br>
-                        SECTION: NOV 2022
-                        <br>
-                        PLANS: NOV 2022
-                    </div>
-                    <img src="iterations.jpeg" alt="House Project Image 2" onclick="openLightbox(this)">
-                </div>
-                <img src="Jan 12 section.png" alt="Full Spread Image" class="full-spread" onclick="openLightbox(this)">
-
-                <img src="5yearplan.jpeg" alt="Second Full Spread Image" class="full-spread" onclick="openLightbox(this)">
-            </div>
-
-            <div id="fourth-project" class="section-content fade-in">
-                <!-- Add content for the fourth project here -->
-                <div class="timeline-item">
-                    <img src="rooftoprender.jpeg" alt="Rooftop Canopy Image 1" onclick="openLightbox(this)">
-                    <div class="timeline-text">
-                        BELOW IS A SELECTION OF SLIDES FROM A DESIGN REPORT. THE CANOPY WAS THE INDIVIDUAL CONTRIBUTION TO PART OF A LARGER GROUP PROJECT. THE REPORT COVERS ADVANCED METHODS OF MEASURING AND MITIGATING THE ACOUSTIC ENVIRONMENT, A DETAILED LIGHTING LEGEND, AND THE THERMAL QUALITIES OF THE INTERVENTION.
-                    </div>
-                </div>
-                
-                    <img src="Thermalstuff.jpeg" alt="Second Full Spread Image" class="full-spread" onclick="openLightbox(this)">
-                    <img src="Acoustic_Calcs.jpeg" alt="Second Full Spread Image" class="full-spread" onclick="openLightbox(this)">
-                    <img src="Lighting_legend.jpeg" alt="Second Full Spread Image" class="full-spread" onclick="openLightbox(this)">
-                </div>
             </div>
         </div>
     </div>
