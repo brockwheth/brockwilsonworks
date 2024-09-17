@@ -710,29 +710,31 @@
         }
 
         function toggleSection(sectionId) {
-    // Get all project sections (the individual project ones only)
-    const allSections = document.querySelectorAll('#social-condenser, #Bartlett, #equal-parts, #stepwell, #houseproject, #thermal');
+        // Get all project sections (the individual project ones only)
+        const allSections = document.querySelectorAll('#social-condenser, #Bartlett, #equal-parts, #stepwell, #houseproject, #thermal');
 
-    // Loop through all sections and hide them except the clicked one
-    allSections.forEach(function (section) {
-        if (section.id !== sectionId) {
-            section.classList.remove('show');
-            section.style.display = 'none'; // Ensure the other sections are hidden
+        // Get the clicked section
+        var section = document.getElementById(sectionId);
+
+        // Check if the clicked section is currently open
+        var isCurrentlyOpen = section.style.display === 'block';
+
+        // Loop through all sections and hide them
+        allSections.forEach(function (sec) {
+            sec.classList.remove('show');
+            sec.style.display = 'none'; // Ensure all sections are hidden
+        });
+
+        // Toggle the clicked section's visibility based on its current state
+        if (!isCurrentlyOpen) {
+            section.style.display = 'block';
+            setTimeout(function () {
+                section.classList.add('show');
+            }, 10); // Add a small delay to ensure the display change takes effect
+        } else {
+            section.style.display = 'none';
         }
-    });
-
-    // Get the clicked section
-    var section = document.getElementById(sectionId);
-
-    // Open the clicked section (don't toggle, just open)
-    if (section.style.display === 'none' || section.style.display === '') {
-        section.style.display = 'block';
-        setTimeout(function () {
-            section.classList.add('show');
-        }, 10); // Add a small delay to ensure the display change takes effect
-    }
-}
-
+        }
         function openLightbox(img) {
             var lightbox = document.getElementById('lightbox');
             var lightboxImg = document.getElementById('lightbox-image');
