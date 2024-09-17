@@ -710,19 +710,28 @@
         }
 
         function toggleSection(sectionId) {
-            var section = document.getElementById(sectionId);
-            if (section.style.display === 'none' || section.style.display === '') {
-                section.style.display = 'block';
-                setTimeout(function() {
-                    section.classList.add('show');
-                }, 10); // Add a small delay to ensure the display change takes effect
-            } else {
-                section.classList.remove('show');
-                setTimeout(function() {
-                    section.style.display = 'none';
-                }, 500); // Match this to the fade-in time
-            }
+    // Get all project sections (the individual project ones only)
+    const allSections = document.querySelectorAll('#social-condenser, #Bartlett, #equal-parts, #stepwell, #houseproject, #thermal');
+
+    // Loop through all sections and hide them except the clicked one
+    allSections.forEach(function (section) {
+        if (section.id !== sectionId) {
+            section.classList.remove('show');
+            section.style.display = 'none'; // Ensure the other sections are hidden
         }
+    });
+
+    // Get the clicked section
+    var section = document.getElementById(sectionId);
+
+    // Open the clicked section (don't toggle, just open)
+    if (section.style.display === 'none' || section.style.display === '') {
+        section.style.display = 'block';
+        setTimeout(function () {
+            section.classList.add('show');
+        }, 10); // Add a small delay to ensure the display change takes effect
+    }
+}
 
         function openLightbox(img) {
             var lightbox = document.getElementById('lightbox');
