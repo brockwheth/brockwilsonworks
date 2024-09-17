@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 
     <!-- Open Graph Meta Tags for Social Sharing -->
     <meta property="og:title" content="brockwilsonworks">
@@ -32,7 +32,7 @@
             margin-left: calc(-50vw + 50%); /* Centers the image by negating body margin */
             margin-top: 20px; /* Keep this for vertical spacing */
             position: relative;
-         }
+        }
 
         #Bartlett .full-spread {
             width: 100vw; /* Full viewport width */
@@ -144,7 +144,7 @@
         }
 
         .module {
-            text-align: left;
+            text-align: justify;
             width: 33%;
             margin-right: 2%;
             padding-top: 58px;
@@ -183,9 +183,18 @@
             opacity: 1;
         }
 
-        #about .centered-text {
-            margin-left: 0%; /* Match the margin of the section title */
-            padding-left: 0; /* Ensure no extra padding */
+        #about .section-content p {
+            font-size: inherit !important; /* Force inheritance to match the other sections */
+            color: inherit !important; /* Ensure the color matches other sections */
+            text-transform: inherit; /* Inherit text styling */
+            text-align: justify; /* Justify the text */
+        }
+
+        #about .section-content {
+            display: block;
+            opacity: 1;
+            font-size: inherit;
+            transition: none; /* Disable transitions for testing */
         }
 
         #skills.section-content {
@@ -368,6 +377,18 @@
             text-decoration: none;
         }
 
+        .email-link {
+            color: #92969a; /* Default color for email link */
+        }
+
+        .email-link:hover {
+            color: #428f70; /* Hover color for email link */
+        }
+
+        a:visited {
+            color: #92969a; /* Ensure visited links also have the same default color */
+        }
+
         .portfolio-projects {
             display: flex;
             justify-content: space-between;
@@ -413,7 +434,6 @@
             opacity: 1;
         }
 
-        }   
         html {
             font-size: 16px;
         }
@@ -449,13 +469,12 @@
             .container {
                 flex-direction: column;
             }
-
         }
+
         .highlight-green {
             color: #428f70; /* The same green used elsewhere in the document */
         }
     
-        
     </style>
 </head>
 
@@ -471,27 +490,22 @@
             <div class="module">
                 <h2 class="section-title" onclick="toggleSection('about')">About</h2>
                 <div id="about" class="section-content fade-in">
-                    <section class="centered-text">
-                        <div class="centered-text-content" style="display: inline-block; text-align: justify;">
-                            
-                            <p>
-                                My name is Brock, and I am a third-year student at the University of
-                                Technology, Sydney, pursuing a Bachelor of Design in Architecture,
-                                intending to move into bio-integrated design or architecture &
-                                engineering for postgraduate studies. Beyond my academic
-                                engagement, I produce and write music under my name, Brock
-                                Wilson, and have been doing so for close to 8 years. In addition
-                                to architecture and music, my appreciation for creativity extends to
-                                art, bouldering, chess, design, and sciences. This portfolio displays
-                                a selection of my favorite academic work & ideas, please enjoy.
-                            </p>
-                            <p class="contact-info">
-                                <a href="mailto:brockwheth@gmail.com">brockwheth@gmail.com</a>
-                                <span></span>
-                                <span>GLEBE, NSW</span>
-                            </p>
-                        </div>
-                    </section>
+                    <p>
+                        My name is Brock, and I am a third-year student at the University of
+                        Technology, Sydney, pursuing a Bachelor of Design in Architecture,
+                        intending to move into bio-integrated design or architecture &
+                        engineering for postgraduate studies. Beyond my academic
+                        engagement, I produce and write music under my name, Brock
+                        Wilson, and have been doing so for close to 8 years. In addition
+                        to architecture and music, my appreciation for creativity extends to
+                        art, bouldering, chess, design, and sciences. This portfolio displays
+                        a selection of my favorite academic work & ideas, please enjoy.
+                    </p>
+                    <p class="contact-info">
+                        <a href="mailto:brockwheth@gmail.com" class="email-link">brockwheth@gmail.com</a>
+                            <span></span>
+                        <span>GLEBE, NSW</span>
+                    </p>
                 </div>
             </div>
 
@@ -504,37 +518,32 @@
                             <p>Bachelor of Design in Architecture (6.3/7 GPA - ongoing)</p>
                             <p class="right-align">University of Technology, Sydney<br>2023/2025</p>
                         </div>
-                        </p>
-                         <p class="description">Student representative: bi-weekly meetings with course coodinator to discuss student concerns to improve student experience & course quality</p>
+                        <p class="description">Student representative: bi-weekly meetings with course coordinator to discuss student concerns to improve student experience & course quality</p>
                         <p class="description">Peer tutor for Architectural History & Theory: Urbanism (assisting second-year students with research, writing & conceptual framework)</p>
-
                     </div>
-                    </p>
-                     <div class="education-item">
+                    <div class="education-item">
                         <div class="education-item-title">
-                            <p>"Creative Terrain", short course (certificate))</p>
+                            <p>"Creative Terrain", short course (certificate)</p>
                             <p class="right-align">Bartlett School of Architecture, London<br>2024</p>
                         </div>
-                        </p>
-                        <p class="description">One week collaborative landscape architecture workshop, speculating possible formal inerventions within Lee Valley, UK </p>
+                        <p class="description">One week collaborative landscape architecture workshop, speculating possible formal interventions within Lee Valley, UK </p>
                     </div>
                     <div class="education-item">
                         <div class="education-item-title">
                             <p>Diploma of Design and Architecture (6.8/7 GPA)</p>
                             <p class="right-align">University of Technology, Sydney, College<br>2021/2022</p>
                         </div>
-                        </p>
-                        <p class="description">Recipient of “Outstanding Graduate Award”, and “Dean’s Merrit Award”</p>
+                        <p class="description">Recipient of “Outstanding Graduate Award”, and “Dean’s Merit Award”</p>
                     </div>
                     <div class="education-item">
                         <div class="education-item-title">
                             <p>Diploma of Audio Engineering & Music Production (4/4 GPA)</p>
                             <p class="right-align">Nimbus School of Recording Arts, Vancouver<br>2017/2018</p>
                         </div>
-                        </p>
                         <p class="description">Commended with written recommendations from founders and instructors</p>
                     </div>
                 </div>
+
                 <!-- PROFESSIONAL ROLES Header -->
                 <h2 class="section-title" onclick="toggleSection('professional')">Professional and Leadership Roles</h2>
                 <div id="professional" class="section-content fade-in">
@@ -543,34 +552,27 @@
                             <p>"Super Studio" Architecture Competition</p>
                             <p class="right-align">Australian Institute of Architects <br>2024</p>
                         </div>
-                        </p>
                         <p class="description">A one week intensive architecture competition through the AIA, with fellow classmates Christopher Fares and Elijah Marlow</p>
                     </div>
-                    </p>
                     <div class="education-item">
                         <div class="education-item-title">
                             <p>President of UTS Chess Club</p>
                             <p class="right-align">University of Technology, Sydney<br>2022/2023</p>
                         </div>
-                        </p>
                         <p class="description">Responsible for organizing and planning events, meets and tournaments. Doubled memberships and club profits</p>
                     </div>
-                    </p>
                     <div class="education-item">
                         <div class="education-item-title">
                             <p>Student Consultant for Accessibility Services at UTS</p>
                             <p class="right-align">University of Technology, Sydney, Student Services Unit <br>2023</p>
                         </div>
-                        </p>
                         <p class="description">Collaborating with registered students to provide feedback to improve inclusive teaching practices at UTS</p>
                     </div>
-                    </p>
                     <div class="education-item">
                         <div class="education-item-title">
                             <p>Brock Wilson</p>
                             <p class="right-align">Brock Wilson<br>2017/present</p>
                         </div>
-                        </p>
                         <p class="description">Songwriter/producer recording artist with 8 years exp., 10+ million streams on Spotify, & work with Grammy nominated artists</p>
                     </div>
                 </div>
@@ -583,7 +585,6 @@
                             <p>Alex Seo, PhD - Architect, Historian & Theorist, Academic Tutor & Coordinator at UTS</p>
                             <p class="right-align"><a href="mailto:alex.seo@unimelb.edu.au" style="color: #92969a; text-transform: lowercase;">alex.seo@unimelb.edu.au</a></p>
                         </div>
-                        </p>
                         <div class="education-item-title">
                             <p>Stefan Joksić - Architect & Urban Designer, Academic Tutor at UTS</p>
                             <p class="right-align"><a href="mailto:stefan.joksic@uts.edu.au" style="color: #92969a; text-transform: lowercase;">stefan.joksic@uts.edu.au</a></p>
@@ -597,30 +598,27 @@
                     <div class="education-item">
                         <div class="education-item-title">
                             <p>Adobe CC - Photoshop, Indesign, (proficient) Illustrator, Premiere (intermediate)</p>
-                                <p class="right-align">
-                                    <span class="highlight-green">Integrated Thinker</span> - Able to find innovative solutions drawing from multiple disciplines
-                        </p>
+                            <p class="right-align">
+                                <span class="highlight-green">Integrated Thinker</span> - Able to find innovative solutions drawing from multiple disciplines
+                            </p>
                         </div>
-                        </p>
                         <div class="education-item-title">
                             <p>BIM/rendering - Rhino, Enscape, Twinmotion (proficient) Autocad, Sketchup (intermediate)</p>
-                                <p class="right-align">
-                                    <span class="highlight-green">Proficient Writer</span> - Excellent writing skills, theoretical synthesis & application
-                        </p>
+                            <p class="right-align">
+                                <span class="highlight-green">Proficient Writer</span> - Excellent writing skills, theoretical synthesis & application
+                            </p>
                         </div>
-                        </p>
                         <div class="education-item-title">
                             <p>Scripting/markup - Grasshopper, TouchDesigner, HTML, CSS, Java (beginner)</p>
-                                <p class="right-align">
-                                    <span class="highlight-green">Quick & Eager Study</span> - Able to grasp new concepts quickly with a genuine interest
-                        </p>
+                            <p class="right-align">
+                                <span class="highlight-green">Quick & Eager Study</span> - Able to grasp new concepts quickly with a genuine interest
+                            </p>
                         </div>
-                        </p>
                         <div class="education-item-title">
                             <p>Audio, other - Ableton Live + other DAWs, CapCut (proficient)</p>
-                                <p class="right-align">
-                                    <span class="highlight-green">Ambitious & Driven</span> - Work hard to pursue & achieve personal & professional goals
-                        </p>
+                            <p class="right-align">
+                                <span class="highlight-green">Ambitious & Driven</span> - Work hard to pursue & achieve personal & professional goals
+                            </p>
                         </div>
                     </div>
                 </div>
@@ -739,6 +737,14 @@
         }
 
         document.querySelectorAll('#references a').forEach(function(link) {
+            link.addEventListener('mouseover', function() {
+                this.style.color = '#428f70';
+            });
+            link.addEventListener('mouseout', function() {
+                this.style.color = '#92969a';
+            });
+        });
+        document.querySelectorAll('#references a, .email-link').forEach(function(link) {
             link.addEventListener('mouseover', function() {
                 this.style.color = '#428f70';
             });
