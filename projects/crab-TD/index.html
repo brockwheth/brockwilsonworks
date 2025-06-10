@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>brockwilsonworks</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="../../styles.css" />
+  <link rel="stylesheet" href="../../styles/header.css" />
+
+  <script src="https://unpkg.com/@phosphor-icons/web"></script>
+
+  <style>
+    @font-face {
+      font-family: 'Helvetica Neue Thin';
+      src: url('https://fonts.cdnfonts.com/s/14479/HelveticaNeue-Thin.woff') format('woff');
+    }
+  
+    body {
+      margin: 0;
+      font-family: 'Helvetica Neue Thin', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+      color: #92969a;
+      background-color: #000000;
+      text-transform: uppercase;
+    }
+  
+    main {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 60px 20px;
+    }
+  
+    .content-block {
+      max-width: 900px;
+      width: 100%;
+      margin-bottom: 60px;
+      text-align: justify;
+    }
+  
+    .content-block img {
+      width: 100%;
+      height: auto;
+      display: block;
+      margin-top: 20px;
+    }
+  
+    h1, h2 {
+    font-weight: normal;
+    color: #92969a;
+    }
+
+    .slider-container {
+    position: relative;
+    max-width: 900px;
+    margin: 60px auto;
+    overflow: hidden;
+    }
+
+    .project-header {
+    position: relative;
+    padding: 40px 20px;
+    text-align: center;
+    }
+
+    .play-title {
+    margin: 0;
+    font-size: 1rem;
+    color: #92969a;
+    cursor: pointer;
+    }
+
+    .project-header {
+      position: relative;
+      padding: 40px 20px 0 20px;
+      margin-bottom: 0;
+    }
+
+    /* Title on top-left */
+    .play-title {
+      position: absolute;
+      top: 40px;
+      left: 20px;
+      margin: 0;
+      font-size: 1rem;
+      color: #92969a;
+      cursor: pointer;
+    }
+    .play-title:hover {
+      color: #428f70;
+    }
+
+    main {
+    padding-top: 0; /* prevent top spacing if added */
+    }
+
+    .project-layout {
+    display: flex;
+    gap: 40px;
+    max-width: 1200px;
+    margin: 0 auto;
+    align-items: flex-start;
+    padding: 60px 20px;
+    flex-wrap: wrap;
+    }
+
+    html, body {
+    height: auto;
+    overflow: auto;
+  }
+
+    .video-container {
+    position: relative;
+    width: 100%;
+    max-width: 100%;
+    max-height: 80vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    }
+
+    #customVideo {
+    width: 100%;
+    max-height: 80vh;
+    object-fit: contain;
+    background-color: black;
+    }
+
+    /* Center play button */
+    .play-btn {
+    position: absolute;
+    font-size: 3rem;
+    color: #428f70;
+    cursor: pointer;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    z-index: 2;
+    }
+
+    .video-container:hover .play-btn {
+    opacity: 1;
+    }
+
+    .play-btn {
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    }
+
+    /* Bottom right volume button */
+    .volume-btn {
+    position: absolute;
+    bottom: 20px;
+    right: 20px;
+    font-size: 1.8rem;
+    color: #428f70;
+    cursor: pointer;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    z-index: 2;
+    }
+
+    .video-container:hover .volume-btn {
+    opacity: 1;
+    }
+
+    .volume-control {
+    position: absolute;
+    bottom: 20px;
+    right: 20px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    z-index: 2;
+    }
+
+    .video-container:hover .volume-control {
+    opacity: 1;
+    }
+
+    #volumeSlider {
+    width: 80px;
+    cursor: pointer;
+    appearance: none;
+    height: 3px;
+    background: #555;
+    border-radius: 2px;
+    }
+
+    #volumeSlider::-webkit-slider-thumb {
+    appearance: none;
+    width: 10px;
+    height: 10px;
+    background: #428f70;
+    border-radius: 50%;
+    cursor: pointer;
+    }
+
+  </style>
+  
+</head>
+  <body>
+    <header class="project-header">
+        <h1 class="play-title" onclick="location.href='../../index.html'">BROCK WILSON HETHERINGTON</h1>
+      </header>
+      <main>
+        <div class="slider-container">
+            <div class="slider-wrapper" id="sliderWrapper">
+                <div class="video-container">
+                  <video
+                  id="customVideo"
+                  loop       
+                  style="
+                    width:100%;
+                    max-height:80vh;
+                    object-fit:contain;
+                    background-color:black;
+                    display:block;
+                    margin:0 auto;
+                  ">
+                  <source src="https://github.com/brockwheth/brockwilsonworks/releases/download/v.1/crab-TD_1.mp4" type="video/mp4">
+                  Sorry, your browser doesn’t support HTML5 video.
+                </video>
+                    <i class="ph ph-play play-btn" id="playPauseBtn"></i>
+                    <div class="volume-control">
+                        <i class="ph ph-speaker-high" id="volumeBtn"></i>
+                        <input type="range" id="volumeSlider" min="0" max="1" step="0.01" value="1">
+                      </div>
+                  </div>
+            </div>
+          </div>
+          </div>
+        </div>
+      </main>
+
+  <div id="imageModal">
+    <img id="modalImg" style="max-width:90%; max-height:90%;" />
+  </div>
+  <script>
+    const video = document.getElementById('customVideo');
+    const playPauseBtn = document.getElementById('playPauseBtn');
+    const volumeBtn = document.getElementById('volumeBtn');
+  
+    playPauseBtn.addEventListener('click', () => {
+      if (video.paused) {
+        video.play();
+        playPauseBtn.classList.remove('ph-play');
+        playPauseBtn.classList.add('ph-pause');
+      } else {
+        video.pause();
+        playPauseBtn.classList.remove('ph-pause');
+        playPauseBtn.classList.add('ph-play');
+      }
+    });
+  
+    volumeBtn.addEventListener('click', () => {
+      video.muted = !video.muted;
+      if (video.muted) {
+        volumeBtn.classList.remove('ph-speaker-high');
+        volumeBtn.classList.add('ph-speaker-slash');
+      } else {
+        volumeBtn.classList.remove('ph-speaker-slash');
+        volumeBtn.classList.add('ph-speaker-high');
+      }
+    });
+
+    const volumeSlider = document.getElementById('volumeSlider');
+
+    volumeSlider.addEventListener('input', () => {
+    video.volume = volumeSlider.value;
+    video.muted = video.volume === 0;
+    volumeBtn.className = video.muted ? 'ph ph-speaker-slash' : 'ph ph-speaker-high';
+    });
+  </script>
+ 
+</body>
+</html>
