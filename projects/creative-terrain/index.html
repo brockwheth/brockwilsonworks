@@ -171,10 +171,12 @@
       max-width: 400px;
       text-transform: none;
       display: none;
-      background: none;
       padding: 0;
       box-shadow: none;
       border: none;
+      background: white;
+      opacity: .9;
+      border-radius: 5px;
     }
     #project-details-container.show {
       display: block;
@@ -206,6 +208,7 @@
       line-height: 1.6;
       text-align: justify;
       margin-bottom: 1rem;
+      padding-left: 20px;
     }
 
     /* Project info always visible once container is open */
@@ -214,6 +217,7 @@
       color: #92969a;
       font-size: 0.85rem;
       line-height: 1.6;
+      
     }
 
     main {
@@ -270,6 +274,56 @@
     .slider img {
       image-rendering: auto;
       transform: translateZ(0);
+    }
+
+    /* 1) Default (desktop-up) fluid typography via clamp() */
+    .play-title {
+      font-size: clamp(0.85rem, 4vw, 1rem);
+    }
+    .header-right {
+      font-size: clamp(0.85rem, 3vw, 0.9rem);
+    }
+    /* …etc… */
+
+    /* 2) Tablet (below 992px): dial everything down a notch */
+    @media (max-width: 992px) {
+      .play-title {
+        font-size: 0.9rem;       /* overrides clamp() here */
+      }
+      .header-right {
+        font-size: 0.8rem;
+      }
+      h2.sub-header {
+        font-size: 0.8rem;
+      }
+      .desc,
+      .info {
+        font-size: 0.75rem;
+      }
+      .content-block p {
+        font-size: 0.85rem;
+      }
+    }
+
+    /* 3) Mobile (below 576px): smallest sizes */
+    @media (max-width: 576px) {
+      .play-title {
+        font-size: 0.75rem;
+      }
+      .header-right,
+      h2.sub-header {
+        font-size: 0.75rem;
+      }
+      .desc,
+      .info {
+        font-size: 0.5rem;
+      }
+      .content-block p {
+        font-size: 0.5rem;
+      }
+      .slider-btn i {
+        font-size: 1.5rem;       /* arrows scale down, too */
+      }
     }
   </style>
 </head>
