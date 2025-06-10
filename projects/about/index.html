@@ -11,114 +11,131 @@
   <!-- Page-Specific Styles -->
   <style>
     @font-face {
-      font-family: 'Helvetica Neue Thin';
-      src: url('https://fonts.cdnfonts.com/s/14479/HelveticaNeue-Thin.woff') format('woff');
-    }
+  font-family: 'Helvetica Neue Thin';
+  src: url('https://fonts.cdnfonts.com/s/14479/HelveticaNeue-Thin.woff') format('woff');
+}
 
-    body {
-      margin: 0;
-      font-family: 'Helvetica Neue Thin', 'Helvetica Neue', Helvetica, Arial, sans-serif;
-      color: #92969a;
-      background-color: #ffffff;
-      text-transform: uppercase;
-      font-size: 1rem;
-    }
+/* 1) Root scaling */
+html {
+  font-size: 1rem;  /* 16px base */
+}
+@media (max-width: 992px) {
+  html { font-size: 0.9rem; /* ~14.4px */ }
+}
+@media (max-width: 576px) {
+  html { font-size: 0.75rem; /* 12px */ }
+}
 
-    /* Header tweaks */
-    .play-title {
-      font-size: 1rem;
-      font-weight: normal;
-    }
+/* 2) Body & header */
+body {
+  margin: 0;
+  font-family: 'Helvetica Neue Thin', Helvetica, Arial, sans-serif;
+  color: #92969a;
+  background: #fff;
+  text-transform: uppercase;
+}
+.play-title {
+  position: absolute;
+  top: 40px;            /* fixed at your original px offset */
+  left: 20px;
+  margin: 0;
+  font-size: 1rem;      /* still scales with html font-size */
+  font-weight: normal;  /* ensures Helvetica Neue Thin is used */
+  line-height: 1;
+  color: #92969a;
+  cursor: pointer;
+}
+.play-title:hover {
+  color: #428f70;
+}
 
-    main {
-      display: flex;
-      align-items: flex-start;
-      justify-content: center;
-      gap: 40px;
-      padding: 60px 20px;
-    }
+/* 3) Main layout */
+main {
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  gap: 2.5rem;            /* 40px */
+  padding: 3.75rem 1.25rem; /* 60px 20px */
+}
 
-    /* About text overrides: cancel uppercase for readability */
-    .about-text {
-      max-width: 600px;
-      text-transform: none;
-    }
+/* 4) Text block */
+.about-text {
+  max-width: 37.5rem; /* 600px */
+  text-transform: none;
+}
+.about-text p {
+  font-size: 0.85rem;   /* ~13.6px, scales */
+  line-height: 1.6;
+  text-align: justify;
+  margin: 0;
+  padding-top: 7.5rem;  /* 120px */
+  text-transform: none;
+}
+.about-text a {
+  color: #428f70;
+  text-decoration: none;
+}
 
-    .about-text p {
-        font-size: 0.85rem;
-        line-height: 1.6;
-      text-align: justify;
-      color: #92969a;
-      margin: 0;
-      /* optional: force lowercase display */
-      text-transform: none;
-      padding: 112px 0px 0;
-    }
+/* 5) Image block */
+.about-image img {
+  width: 100%;
+  max-width: 18.75rem;  /* 300px */
+  height: auto;
+  display: block;
+  padding-top: 7.5rem;  /* 120px */
+}
 
-    .about-text a {
-      color: #428f70;
-      text-decoration: none;
-    }
+/* 6) Link bar */
+.about-links {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  max-width: 57.5rem;    /* 920px */
+  margin: 2.5rem auto 0; /* 40px top, center */
+  padding: 0 1.25rem;    /* 20px */
+  text-transform: uppercase;
+}
+.about-links a {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;           /* 8px */
+  font-size: 1rem;
+  color: #92969a;
+  text-decoration: none;
+  transition: color 0.3s;
+}
+.about-links a:hover {
+  color: #428f70;
+}
 
-    .about-image img {
-      width: 300px;
-      height: auto;
-      display: block;
-      padding: 120px 0px 0;
-    }
-
-    /* PROJECT HEADER STYLES */
-    .project-header {
-      position: relative;
-      padding: 40px 20px 0;
-      margin-bottom: 0;
-    }
-
-    /* Title on top-left */
-    .play-title {
-      position: absolute;
-      top: 40px;
-      left: 20px;
-      margin: 0;
-      font-size: 1rem;
-      color: #92969a;
-      cursor: pointer;
-    }
-    .play-title:hover {
-      color: #428f70;
-    }    
-
-    .about-links {
-    display: flex;
-    justify-content: space-between;
+/* 7) Small-screen stacking (optional tweaks) */
+@media (max-width: 576px) {
+  main {
+    flex-direction: column;
     align-items: center;
-    max-width: 920px;        /* roughly text(600px) + image(300px) + 40px gap */
-    margin: 40px auto 0;     /* push down from your main content */
-    padding: 0 20px;         /* match your page horizontal gutters */
-    text-transform: uppercase;
-    }
+    gap: 1.25rem;         /* 20px */
+    padding: 2.5rem 0.625rem; /* 40px 10px */
+  }
+  .about-text {
+    max-width: 100%;
+    padding: 0 0.625rem;  /* 10px */
+  }
+  .about-image img {
+    max-width: 12.5rem;   /* 200px */
+  }
+}
 
-    .about-links a {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    font-size: 1rem;
-    color: #92969a;
-    text-decoration: none;
-    transition: color 0.3s;
-    }
-
-    .about-links a:hover {
-    color: #428f70;
-    }
-    
   </style>
 </head>
-<body>
+<body class="about-page">
+
+  
   <!-- Header -->
   <header class="project-header">
     <!-- Left-aligned title -->
-    <h1 class="play-title" onclick="location.href='../../index.html'">BROCK WILSON HETHERINGTON</h1>
+    <a href="../../index.html" target="_top" style="text-decoration:none;">
+      <h1 class="play-title">BROCK WILSON HETHERINGTON</h1>
+    </a>
   </header>
 
   <main>
