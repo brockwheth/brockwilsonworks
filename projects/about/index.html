@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>brockwilsonworks - about</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="../../styles.css" />
+  <link rel="stylesheet" href="../../styles/header.css" />
+  <script src="https://unpkg.com/@phosphor-icons/web"></script>
+
+  <!-- Page-Specific Styles -->
+  <style>
+    @font-face {
+      font-family: 'Helvetica Neue Thin';
+      src: url('https://fonts.cdnfonts.com/s/14479/HelveticaNeue-Thin.woff') format('woff');
+    }
+
+    body {
+      margin: 0;
+      font-family: 'Helvetica Neue Thin', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+      color: #92969a;
+      background-color: #ffffff;
+      text-transform: uppercase;
+      font-size: 1rem;
+    }
+
+    /* Header tweaks */
+    .play-title {
+      font-size: 1rem;
+      font-weight: normal;
+    }
+
+    main {
+      display: flex;
+      align-items: flex-start;
+      justify-content: center;
+      gap: 40px;
+      padding: 60px 20px;
+    }
+
+    /* About text overrides: cancel uppercase for readability */
+    .about-text {
+      max-width: 600px;
+      text-transform: none;
+    }
+
+    .about-text p {
+        font-size: 0.85rem;
+        line-height: 1.6;
+      text-align: justify;
+      color: #92969a;
+      margin: 0;
+      /* optional: force lowercase display */
+      text-transform: none;
+      padding: 112px 0px 0;
+    }
+
+    .about-text a {
+      color: #428f70;
+      text-decoration: none;
+    }
+
+    .about-image img {
+      width: 300px;
+      height: auto;
+      display: block;
+      padding: 120px 0px 0;
+    }
+
+    /* PROJECT HEADER STYLES */
+    .project-header {
+      position: relative;
+      padding: 40px 20px 0;
+      margin-bottom: 0;
+    }
+
+    /* Title on top-left */
+    .play-title {
+      position: absolute;
+      top: 40px;
+      left: 20px;
+      margin: 0;
+      font-size: 1rem;
+      color: #92969a;
+      cursor: pointer;
+    }
+    .play-title:hover {
+      color: #428f70;
+    }    
+
+    .about-links {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    max-width: 920px;        /* roughly text(600px) + image(300px) + 40px gap */
+    margin: 40px auto 0;     /* push down from your main content */
+    padding: 0 20px;         /* match your page horizontal gutters */
+    text-transform: uppercase;
+    }
+
+    .about-links a {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 1rem;
+    color: #92969a;
+    text-decoration: none;
+    transition: color 0.3s;
+    }
+
+    .about-links a:hover {
+    color: #428f70;
+    }
+    
+  </style>
+</head>
+<body>
+  <!-- Header -->
+  <header class="project-header">
+    <!-- Left-aligned title -->
+    <h1 class="play-title" onclick="location.href='../../index.html'">BROCK WILSON HETHERINGTON</h1>
+  </header>
+
+  <main>
+    
+    <div class="about-text">
+      <p>Hi, I'm Brock. I'm a Sydney-based architectural designer and 
+        songwriter, with a particular interest in the way sciences can influence and support creativity.
+        I hold a Bachelor of Design in Architecture from the University of Technology Sydney (UTS), 
+        and intend to pursue a Master of Architecture soon. 
+        During my degree, I loved to get
+        involved around the university, working as
+        a peer tutor, student representative, Chess
+        Club President, and Student Consultant
+        for the Accessibility Services Unit at UTS.
+        My eight-year background as a songwriter / producer has profoundly shaped
+        my design perspective,
+        enabling a fluid knowledge transfer into
+        architecture, particularly through acoustics
+        and design compositional thinking.
+        <br><br>
+
+        My interest in science started mostly in cognitive sciences, and started to influence my architectural ideas
+        in my second year, though is most evident in my <a href="../equal-parts/index.html">studio 5</a> proposal.
+        I was simultaneously interested in material design and biology, 
+        but didn't really explore this until my <a href="../social-condenser-process1/">final studio</a> proposal where I worked with mycelium.
+        Moving forward, I'd like to spend more time exploring the intersection of architecture and biology, chemistry, and physics.
+        Similarly, a means of bridging my architectural, scientific, and musical interests is important to me. So far this has manifested through audio-visual
+        creative coding projects <a href="../crab-TD/index.html">like this,</a> but am continuing to work on a lot of exciting ideas I wish to share soon.
+
+        <br><br> 
+        Outside of my professional and academic interests, I like to play chess, go bouldering, and read. Please feel free to get in touch with me through any of the portals below.
+        </p>    
+    </div>
+    <div class="about-image">
+      <img src="headshot.webp" alt="Headshot" />
+    </div>
+    
+  </main>
+  <div class="about-links">
+    <a href="https://instagram.com/brockwilsonworks" target="_blank">
+      <i class="ph ph-instagram-logo"></i>
+      
+    </a>
+    <a href="https://linkedin.com/in/brockwilsonhetherington" target="_blank">
+      <i class="ph ph-linkedin-logo"></i>
+      
+    </a>
+    <a href="mailto:brockwheth@gmail.com">
+      <i class="ph ph-mailbox"></i>
+      
+    </a>
+    <a href="https://issuu.com/brockhetherington" target="_blank">
+      <i class="ph ph-read-cv-logo"></i>
+      
+    </a>
+  </div>
+</body>
+</html>
