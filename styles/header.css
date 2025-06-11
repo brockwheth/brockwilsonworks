@@ -13,6 +13,7 @@
     background-color: transparent;
     font-size: 1rem;
     text-align: center;
+
   }
   
   .play-title {
@@ -37,17 +38,7 @@
   body.about-page .close-btn {
     display: block !important;
   }
-
-  .project-header {
-    position: relative;   /* you already have this */
-    z-index: 10;          /* lift the whole header (and its children) above the slider */
-  }
   
-  #project-details-container {
-    /* remove the global opacity so your text stays nice and sharp */
-    opacity: 1;
-    background: rgba(255,255,255,0.9);  /* only the background is translucent */
-    
-    /* make sure this sits on top of the slider’s stacking context */
-    z-index: 20;
+  header {
+    padding: 40px 20px 0 !important;
   }
