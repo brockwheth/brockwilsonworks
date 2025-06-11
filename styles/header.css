@@ -1,0 +1,53 @@
+@font-face {
+    font-family: 'Helvetica Neue Thin';
+    src: url('https://fonts.cdnfonts.com/s/14479/HelveticaNeue-Thin.woff') format('woff');
+  }
+  
+  header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    padding: 30px 40px;
+    z-index: 1000;
+    background-color: transparent;
+    font-size: 1rem;
+    text-align: center;
+  }
+  
+  .play-title {
+    font-size: 1rem;
+    margin: 0;
+    cursor: pointer;
+    display: inline-block;
+    color: #92969a;
+    text-transform: uppercase;
+    font-family: 'Helvetica Neue Thin', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    text-decoration: none;
+  }
+  
+  .play-title:hover {
+    color: #428f70;
+  }
+
+  .close-btn {
+    display: none !important;
+  }
+  /* only show on About */
+  body.about-page .close-btn {
+    display: block !important;
+  }
+
+  .project-header {
+    position: relative;   /* you already have this */
+    z-index: 10;          /* lift the whole header (and its children) above the slider */
+  }
+  
+  #project-details-container {
+    /* remove the global opacity so your text stays nice and sharp */
+    opacity: 1;
+    background: rgba(255,255,255,0.9);  /* only the background is translucent */
+    
+    /* make sure this sits on top of the slider’s stacking context */
+    z-index: 20;
+  }
