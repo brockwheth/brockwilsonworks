@@ -4,27 +4,11 @@
   <meta charset="UTF-8" />
   <title>brockwilsonworks - about</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <link rel="stylesheet" href="../../styles.css" />
   <link rel="stylesheet" href="../../styles/header.css" />
   <script src="https://unpkg.com/@phosphor-icons/web"></script>
 
   <!-- Page-Specific Styles -->
   <style>
-    @font-face {
-  font-family: 'Helvetica Neue Thin';
-  src: url('https://fonts.cdnfonts.com/s/14479/HelveticaNeue-Thin.woff') format('woff');
-}
-
-/* 1) Root scaling */
-html {
-  font-size: 1rem;  /* 16px base */
-}
-@media (max-width: 992px) {
-  html { font-size: 0.9rem; /* ~14.4px */ }
-}
-@media (max-width: 576px) {
-  html { font-size: 0.75rem; /* 12px */ }
-}
 
 /* 2) Body & header */
 body {
@@ -33,20 +17,6 @@ body {
   color: #92969a;
   background: #fff;
   text-transform: uppercase;
-}
-.play-title {
-  position: absolute;
-  top: 40px;            /* fixed at your original px offset */
-  left: 20px;
-  margin: 0;
-  font-size: 1rem;      /* still scales with html font-size */
-  font-weight: normal;  /* ensures Helvetica Neue Thin is used */
-  line-height: 1;
-  color: #92969a;
-  cursor: pointer;
-}
-.play-title:hover {
-  color: #428f70;
 }
 
 /* 3) Main layout */
@@ -95,6 +65,7 @@ main {
   padding: 0 1.25rem;    /* 20px */
   text-transform: uppercase;
 }
+
 .about-links a {
   display: flex;
   align-items: center;
@@ -103,7 +74,9 @@ main {
   color: #92969a;
   text-decoration: none;
   transition: color 0.3s;
+  margin: 3rem auto 1.25rem; /* 40px top, center horizontally, 20px bottom */
 }
+
 .about-links a:hover {
   color: #428f70;
 }
@@ -125,10 +98,10 @@ main {
   }
 }
 
+
   </style>
 </head>
 <body class="about-page">
-
   
   <!-- Header -->
   <header class="project-header">
@@ -192,5 +165,8 @@ main {
       
     </a>
   </div>
+  <footer class="about-footer">
+    
+  </footer>
 </body>
 </html>
