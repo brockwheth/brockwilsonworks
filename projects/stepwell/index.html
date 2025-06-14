@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <title>brockwilsonworks</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <link rel="stylesheet" href="../../styles.css" />
+
   <link rel="stylesheet" href="../../styles/header.css" />
   <script src="https://unpkg.com/@phosphor-icons/web"></script>
 
@@ -72,22 +72,20 @@
       overflow: hidden;
     }
 
-    .slider {
+    .slider .magnifier-container {
       display: flex;
       width: 100%;
       transition: transform 1s ease;
+      flex: 0 0 100%;
+      position: relative;
     }
 
-    .slider img {
+    .slider .magnifier-container img {
       width: 100%;
       flex: 0 0 100%;
       max-height: 80vh;
       object-fit: contain;
       display: block;
-    }
-
-    .slider img {
-      max-height: 80vh;
     }
 
     .slider-btn {
@@ -102,11 +100,6 @@
       z-index: 10;
       padding: 0;
       transition: opacity 0.3s ease;
-    }
-
-    .slider-container:hover .slider-btn {
-      opacity: 1;
-      pointer-events: auto;
     }
 
     .slider-btn.prev {
@@ -127,47 +120,11 @@
       color: #428f70;
     }
 
-    /* -------------------- HEADER/STYLES -------------------- */
-
-    .project-header {
-      position: relative;
-      padding: 40px 20px 0 20px;
-      margin-bottom: 0;
-    }
-
-    /* Title on top-left */
-    .play-title {
-      position: absolute;
-      top: 40px;
-      left: 20px;
-      margin: 0;
-      font-size: 1rem;
-      color: #92969a;
-      cursor: pointer;
-    }
-    .play-title:hover {
-      color: #428f70;
-    }
-
-    /* Right-hand toggle */
-    .header-right {
-      position: absolute;
-      top: 40px;
-      right: 20px;
-      color: #92969a;
-      font-size: 0.9rem;
-      text-transform: uppercase;
-      cursor: pointer;
-    }
-    .header-right:hover {
-      color: #428f70;
-    }
-
-    /* Container for sub-header + paragraph + info */
     #project-details-container {
       position: absolute;
-      top: 80px;
+      top: 100%;          
       right: 20px;
+      margin-top: 8px; 
       max-width: 400px;
       text-transform: none;
       display: none;
@@ -179,11 +136,11 @@
       opacity: .9;
       border-radius: 5px;
     }
+    
     #project-details-container.show {
       display: block;
     }
 
-    /* Sub-header right-justified */
     h2.sub-header {
       margin: 0 0 0.5rem 0;
       font-size: 0.9rem;
@@ -191,11 +148,7 @@
       text-align: right;
       cursor: pointer;
     }
-    h2.sub-header:hover {
-      color: #428f70;
-    }
 
-    /* Paragraph shown only when sub-header clicked */
     #sub-details {
       display: none;
     }
@@ -210,7 +163,6 @@
       text-align: justify;
       margin-bottom: 1rem;
       padding-left: 20px;
-
     }
 
     /* Project info always visible once container is open */
@@ -277,23 +229,58 @@
       transform: translateZ(0);
     }
 
-    /* 1) Default (desktop-up) fluid typography via clamp() */
-    .play-title {
-      font-size: clamp(0.85rem, 4vw, 1rem);
+    .slider {
+      display: flex;
+      transition: transform 1s ease;
     }
-    .header-right {
-      font-size: clamp(0.85rem, 3vw, 0.9rem);
+
+    .slider-container:hover .slider-btn {
+      opacity: 1;
+      pointer-events: auto;
     }
-    /* …etc… */
+
+    /* ensure the img fills its wrapper */
+    .slider img {
+      width: 100%;
+      display: block;
+      object-fit: contain;
+    }
+
+    .slider > img {
+      flex: 0 0 100%;
+      width: 100%;
+      display: block;
+      object-fit: contain;
+      position: relative;  /* in case you layer on the magnifier later */
+    }
+
+    .magnifier-container {
+      position: relative;
+      overflow: hidden;
+    }
+
+    .magnifier-lens {
+      box-sizing: border-box;       /* include border in size */
+      width: 150px;                 /* diameter */
+      height: 150px;
+      pointer-events: none;
+      background-repeat: no-repeat;
+      position: absolute;
+      border-radius: 50%;
+      top: 0; left: 0;
+      display: none;
+      z-index: 999;
+    }
+
+    /* ensure your wrappers remain full‐width slides */
+    .slider > .magnifier-container {
+      flex: 0 0 100%;
+      position: relative;
+    }
 
     /* 2) Tablet (below 992px): dial everything down a notch */
     @media (max-width: 992px) {
-      .play-title {
-        font-size: 0.9rem;       /* overrides clamp() here */
-      }
-      .header-right {
-        font-size: 0.8rem;
-      }
+      
       h2.sub-header {
         font-size: 0.8rem;
       }
@@ -308,10 +295,7 @@
 
     /* 3) Mobile (below 576px): smallest sizes */
     @media (max-width: 576px) {
-      .play-title {
-        font-size: 0.75rem;
-      }
-      .header-right,
+      
       h2.sub-header {
         font-size: 0.75rem;
       }
@@ -326,6 +310,24 @@
         font-size: 1.5rem;       /* arrows scale down, too */
       }
     }
+
+    /* otherwise, keep them hidden (even if you “tap” in emulation) */
+    @media not all and (hover: hover) and (pointer: fine) {
+      .slider-btn {
+        opacity: 0 !important;
+        pointer-events: none !important;
+      }
+    }
+
+    #project-details-container {
+      /* remove the global opacity so your text stays nice and sharp */
+      opacity: 1;
+      background: rgba(255,255,255,0.9);  /* only the background is translucent */
+      
+      /* make sure this sits on top of the slider’s stacking context */
+      z-index: 20;
+    }
+
   </style>
 </head>
 <body>
@@ -385,19 +387,45 @@
     <div class="slider-container">
       <div class="slider-wrapper" id="sliderWrapper">
         <div class="slider" id="slider">
-          <img src="portrait_model.webp" alt="Stepwell Model" />
-          <img src="landscape_model.webp" alt="Stepwell Model" />
-          <img src="landscape_model_2.webp" alt="Stepwell Model" />
-          <img src="exploded_iso.webp" alt="Exploded Iso" />
-          <img src="process.webp" alt="Process Sketches" />
-          <img src="elevation_1.webp" alt="Elevation" />
-          <img src="elevation_2.webp" alt="Elevation" />
-          <img src="sketch_1.webp" alt="Diagrams" />
-          <img src="sketch_2.webp" alt="Diagrams" />
-          <img src="moment_1.webp" alt="Render Moment" />
-          <img src="moment_2.webp" alt="Render Moment" />
-          <img src="moment_3.webp" alt="Render Moment" />
-          <img src="site_plan.webp" alt="Site Plan" />
+          <div class="magnifier-container">
+            <img src="portrait_model.webp" alt="Stepwell Model" />
+          </div>
+          <div class="magnifier-container">
+            <img src="landscape_model.webp" alt="Stepwell Model" />
+          </div>
+          <div class="magnifier-container">
+            <img src="landscape_model_2.webp" alt="Stepwell Model" />
+          </div>
+          <div class="magnifier-container">
+            <img src="exploded_iso.webp" alt="Exploded Iso" />
+          </div>
+          <div class="magnifier-container">
+            <img src="process.webp" alt="Process Sketches" />
+          </div>
+          <div class="magnifier-container">
+            <img src="elevation_1.webp" alt="Elevation" />
+          </div>
+          <div class="magnifier-container">
+            <img src="elevation_2.webp" alt="Elevation" />
+          </div>
+          <div class="magnifier-container">
+            <img src="sketch_1.webp" alt="Diagrams" />
+          </div>
+          <div class="magnifier-container">
+            <img src="sketch_2.webp" alt="Diagrams" />
+          </div>
+          <div class="magnifier-container">
+            <img src="moment_1.webp" alt="Render Moment" />
+          </div>
+          <div class="magnifier-container">
+            <img src="moment_2.webp" alt="Render Moment" />
+          </div>
+          <div class="magnifier-container">
+            <img src="moment_3.webp" alt="Render Moment" />
+          </div>
+          <div class="magnifier-container">
+            <img src="site_plan.webp" alt="Site Plan" />
+          </div>
         </div>
         <button class="slider-btn prev" onclick="moveSlide(-1)">
           <i class="ph ph-arrow-left"></i>
@@ -408,6 +436,7 @@
       </div>
     </div>
   </main>
+  
 
   <div id="imageModal">
     <img id="modalImg" style="max-width:90%; max-height:90%;" />
