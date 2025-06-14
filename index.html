@@ -2,7 +2,7 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
+    <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 
     <!-- Open Graph Meta Tags for Social Sharing -->
@@ -16,13 +16,15 @@
     <meta property="twitter:title" content="brockwilsonworks">
     <meta property="twitter:description" content="Brock Wilson Hetherington, architectural portfolio">
     <meta property="twitter:image" content="https://brockwilsonworks.com/WebsiteThumbnail.png">
-    
+    <link rel="stylesheet" href="styles/header.css" />
+
     <script src="https://unpkg.com/@phosphor-icons/web"></script>
 
     <link rel="icon" href="https://brockwilsonworks.com/BartlettThumbnail.png" type="image/png">
 
     <title>brockwilsonworks</title>
     <style>
+        
         @font-face {
             font-family: 'Helvetica Neue Thin';
             src: url('https://fonts.cdnfonts.com/s/14479/HelveticaNeue-Thin.woff') format('woff');
@@ -31,7 +33,6 @@
         body {
             font-family: 'Helvetica Neue Thin', 'Helvetica Neue', Helvetica, Arial, sans-serif;
             margin: 0;
-            padding: 0;
             background-color: #ffffff;
             color: #92969a;
             text-transform: uppercase;
@@ -39,19 +40,8 @@
             display: flex;
             flex-direction: column;
             min-height: 100vh;
-            cursor: crosshair;
             opacity: 0;
             transition: opacity 0.5s ease-in;
-        }
-
-        header {
-            background-color: #ffffff;
-            color: #fff;
-            padding: 40px 20px 0;
-            margin-bottom: 20px;
-            margin-top: 0;
-            text-align: left;
-            position: relative;
         }
 
         h1,
@@ -60,21 +50,6 @@
             font-size: 100%;
             color: #92969a;
             font-weight: normal;
-        }
-
-        .play-title {
-            position: relative;
-            cursor: pointer;
-            display: inline-block;  /* ← add this */
-
-        }
-
-        .play-title:hover::after {
-            opacity: 1;
-        }
-
-        .play-title:hover {
-            color: transparent;
         }
 
         iframe {
@@ -116,14 +91,6 @@
 
         a:hover {
             text-decoration: none;
-        }
-
-        .email-link {
-            color: #92969a; /* Default color for email link */
-        }
-
-        .email-link:hover {
-            color: #428f70; /* Hover color for email link */
         }
 
         a:visited {
@@ -189,35 +156,6 @@
             opacity: 1;
         }
 
-        html {
-            font-size: 1rem;
-        }
-
-        @media (max-width: 1200px) {
-            html {
-                font-size: 1rem;
-            }
-        }
-
-        @media (max-width: 992px) {
-            html {
-                font-size: 0.9rem;
-            }
-        }
-
-        @media (max-width: 576px) {
-            html {
-                font-size: 0.75rem;
-                ;
-            }
-            header {
-                padding: 20px;
-            }
-            .container {
-                flex-direction: column;
-            }
-        }
-
         .sound-icon {
         position: absolute;
         top: 50%;
@@ -233,136 +171,6 @@
         .play-title:hover .sound-icon {
         opacity: 1;
         color: #428f70
-        }
-
-        /* Hamburger */
-        .hamburger-icon {
-        position: absolute;
-        top: 40px;
-        right: 20px;
-        font-size: 1.8rem;
-        color: #92969a;
-        cursor: pointer;
-        transition: color 0.3s;
-        }
-        
-        .hamburger-icon:hover {
-        color: #428f70;
-        }
-
-        /* Menu container */
-       /* Dropdown container, same look as your DETAILS panel */
-        #menu-container {
-        position: absolute;
-        top: 80px;          /* just below the header */
-        right: 20px;        /* matches your header padding */
-        display: none;
-        background: none;
-        padding: 0;
-        box-shadow: none;
-        border: none;
-        text-transform: uppercase;
-        }
-        #menu-container.show {
-        display: block;
-        }
-
-        /* Reset list styling */
-        #menu-container ul {
-        list-style: none;
-        margin: 0;
-        padding: 0;
-        }
-
-        /* Each item: right-aligned, uppercase */
-        #menu-container li {
-        margin: 0;
-        padding: 8px 0;
-        }
-
-        #menu-container li a {
-        display: block;
-        text-align: right;
-        font-size: 0.9rem;   /* matches your “DETAILS” text */
-        color: #92969a;
-        text-decoration: none;
-        transition: color 0.3s;
-        }
-
-        #menu-container li + li {
-        border-top: 1px solid #eee;  /* subtle divider if you like */
-        }
-
-        #menu-container li a:hover {
-        color: #428f70;
-        }
-
-        /* Hide the nested list by default */
-        .filter-list {
-        list-style: none;
-        margin: 0;
-        padding: 0 0 0 10px;
-        display: none;
-        }
-
-        /* Show it when parent li has .open */
-        .has-filters.open .filter-list {
-        display: block;
-        }
-
-        /* Tweak the look to match your other links */
-        .filter-list li {
-        padding: 6px 0;
-        }
-
-        .filter-list a {
-        display: block;
-        text-align: right;
-        font-size: 0.9rem;
-        color: #92969a;
-        text-decoration: none;
-        text-transform: uppercase;
-        transition: color 0.2s;
-        }
-
-        .filter-list a:hover {
-        color: #428f70;
-        }
-
-        /* Make the Filter link a positioned inline-block */
-        /* make the container inline-block & positioned */
-        #filterToggle {
-        position: relative;
-        display: inline-block;
-        text-align: right;
-        overflow: hidden;           /* ensure hidden text doesn’t peek */
-        }
-
-        /* the text, normally visible */
-        .filter-text {
-        display: inline-block;
-        transition: opacity 0.3s ease;
-        }
-
-        /* the arrow, absolutely positioned on top of the text */
-        #filterToggle::after {
-        content: '▾';
-        position: absolute;
-        top: 50%;
-        right: 0;
-        transform: translateY(-50%);
-        color: #428f70;             /* give it its own colour */
-        opacity: 0;
-        transition: opacity 0.3s ease;
-        }
-
-        /* hover state: hide the text and show the arrow */
-        #filterToggle:hover .filter-text {
-        opacity: 0;
-        }
-
-        #filterToggle:hover::after {
-        opacity: 1;
         }
 
         #about-popup {
@@ -381,21 +189,6 @@
         #about-popup.show {
         display: block;
         }
-
-        #about-popup .close-btn {
-        position: absolute;
-        top: 20px;
-        right: 20px;
-        background: none;
-        border: none;
-        font-size: 1.5rem;
-        cursor: pointer;
-        color: #92969a;
-        }
-
-        #about-popup .close-btn:hover {
-        color: #428f70;
-        }
         
         #about-popup iframe {
         width: 100%;
@@ -403,47 +196,15 @@
         border: none;
         }
 
-        #about-popup .close-btn {
-        display: none !important;
-        }
-
-        /* only show it when the overlay has the “show” class */
-        #about-popup.show .close-btn {
-        display: block !important;
-        }
-
-        /* 1) Make the header a flex container */
-        header {
-        position: fixed;         /* stick to top */
-        top: 0; left: 0; right: 0;
-        display: flex;           /* flex layout */
-        align-items: center;     /* vertical centering */
-        justify-content: space-between; /* title left, icon right */
-        padding-top: 40px;           /* adjust your spacing here */
-        background: #fff;
-        z-index: 1000;
-
-        }
-
-        /* 2) Reset any old absolute positioning */
-        .play-title,
-        .hamburger-icon {
-        position: static !important;
-        margin: 0;
-        }
-
         /* 3) Slightly adjust the spacing if you need more room */
         body > .portfolio-projects {
-        margin-top: 80px;  /* push your grid down beneath the fixed header */
+        margin-top: 80px;  
         }
-
-        /* 4) (Optional) tweak font‐sizes if you want them responsive */
-        .play-title { font-size: clamp(0.85rem, 4vw, 1rem); }
-        .hamburger-icon { font-size: clamp(1.5rem, 3vw, 1.8rem); }
 
     </style>
 </head>
 
+<link rel="stylesheet" href="/styles/header.css" />
 <body onload="document.body.style.opacity='1'">
     <header>
         <h1 class="play-title" onclick="togglePlayPause()" title="play">
@@ -667,6 +428,22 @@
         document.getElementById('about-popup').classList.remove('show');
         document.body.style.overflow = '';
         }
+
+        document.querySelectorAll(
+        'header #menu-container a, header .filter-list a'
+        ).forEach(el => {
+        el.addEventListener('click', e => {
+            const t = e.currentTarget;
+            // trigger our flash animation
+            t.classList.add('flash');
+            // remove focus so the green doesn't stick
+            t.blur();
+            // when the animation ends, clean up the class
+            t.addEventListener('animationend', () => {
+            t.classList.remove('flash');
+            }, { once: true });
+        });
+        });
 
     </script>
 </body>
