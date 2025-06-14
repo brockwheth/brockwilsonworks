@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <title>brockwilsonworks</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <link rel="stylesheet" href="../../styles.css" />
+
   <link rel="stylesheet" href="../../styles/header.css" />
   <script src="https://unpkg.com/@phosphor-icons/web"></script>
 
@@ -72,22 +72,20 @@
       overflow: hidden;
     }
 
-    .slider {
+    .slider .magnifier-container {
       display: flex;
       width: 100%;
       transition: transform 1s ease;
+      flex: 0 0 100%;
+      position: relative;
     }
 
-    .slider img {
+    .slider .magnifier-container img {
       width: 100%;
       flex: 0 0 100%;
       max-height: 80vh;
       object-fit: contain;
       display: block;
-    }
-
-    .slider img {
-      max-height: 80vh;
     }
 
     .slider-btn {
@@ -102,11 +100,6 @@
       z-index: 10;
       padding: 0;
       transition: opacity 0.3s ease;
-    }
-
-    .slider-container:hover .slider-btn {
-      opacity: 1;
-      pointer-events: auto;
     }
 
     .slider-btn.prev {
@@ -127,47 +120,11 @@
       color: #428f70;
     }
 
-    /* -------------------- HEADER/STYLES -------------------- */
-
-    .project-header {
-      position: relative;
-      padding: 40px 20px 0 20px;
-      margin-bottom: 0;
-    }
-
-    /* Title on top-left */
-    .play-title {
-      position: absolute;
-      top: 40px;
-      left: 20px;
-      margin: 0;
-      font-size: 1rem;
-      color: #92969a;
-      cursor: pointer;
-    }
-    .play-title:hover {
-      color: #428f70;
-    }
-
-    /* Right-hand toggle */
-    .header-right {
-      position: absolute;
-      top: 40px;
-      right: 20px;
-      color: #92969a;
-      font-size: 0.9rem;
-      text-transform: uppercase;
-      cursor: pointer;
-    }
-    .header-right:hover {
-      color: #428f70;
-    }
-
-    /* Container for sub-header + paragraph + info */
     #project-details-container {
       position: absolute;
-      top: 80px;
+      top: 100%;          
       right: 20px;
+      margin-top: 8px; 
       max-width: 400px;
       text-transform: none;
       display: none;
@@ -177,16 +134,13 @@
       border: none;
       background: white;
       opacity: .9;
-
-      padding-left: 20px;
       border-radius: 5px;
     }
-
+    
     #project-details-container.show {
       display: block;
     }
 
-    /* Sub-header right-justified */
     h2.sub-header {
       margin: 0 0 0.5rem 0;
       font-size: 0.9rem;
@@ -194,11 +148,7 @@
       text-align: right;
       cursor: pointer;
     }
-    h2.sub-header:hover {
-      color: #428f70;
-    }
 
-    /* Paragraph shown only when sub-header clicked */
     #sub-details {
       display: none;
     }
@@ -212,6 +162,7 @@
       line-height: 1.6;
       text-align: justify;
       margin-bottom: 1rem;
+      padding-left: 20px;
     }
 
     /* Project info always visible once container is open */
@@ -220,7 +171,6 @@
       color: #92969a;
       font-size: 0.85rem;
       line-height: 1.6;
-
     }
 
     main {
@@ -279,23 +229,59 @@
       transform: translateZ(0);
     }
 
-    /* 1) Default (desktop-up) fluid typography via clamp() */
-    .play-title {
-      font-size: clamp(0.85rem, 4vw, 1rem);
+    .slider {
+      display: flex;
+      transition: transform 1s ease;
     }
-    .header-right {
-      font-size: clamp(0.85rem, 3vw, 0.9rem);
+
+    .slider-container:hover .slider-btn {
+      opacity: 1;
+      pointer-events: auto;
     }
-    /* …etc… */
+
+    /* ensure the img fills its wrapper */
+    .slider img {
+      width: 100%;
+      display: block;
+      object-fit: contain;
+    }
+
+    .slider > img {
+      flex: 0 0 100%;
+      width: 100%;
+      display: block;
+      object-fit: contain;
+      position: relative;  /* in case you layer on the magnifier later */
+    }
+
+    .magnifier-container {
+      position: relative;
+      overflow: hidden;
+    }
+
+    .magnifier-lens {
+      box-sizing: border-box;       /* include border in size */
+      width: 150px;                 /* diameter */
+      height: 150px;
+      pointer-events: none;
+      background-repeat: no-repeat;
+      position: absolute;
+      border-radius: 50%;
+      top: 0; left: 0;
+      transform: translate(-50%, -50%); /* center at its left/top coords */
+      display: none;
+      z-index: 999;
+    }
+
+    /* ensure your wrappers remain full‐width slides */
+    .slider > .magnifier-container {
+      flex: 0 0 100%;
+      position: relative;
+    }
 
     /* 2) Tablet (below 992px): dial everything down a notch */
     @media (max-width: 992px) {
-      .play-title {
-        font-size: 0.9rem;       /* overrides clamp() here */
-      }
-      .header-right {
-        font-size: 0.8rem;
-      }
+      
       h2.sub-header {
         font-size: 0.8rem;
       }
@@ -310,10 +296,7 @@
 
     /* 3) Mobile (below 576px): smallest sizes */
     @media (max-width: 576px) {
-      .play-title {
-        font-size: 0.75rem;
-      }
-      .header-right,
+      
       h2.sub-header {
         font-size: 0.75rem;
       }
@@ -328,6 +311,24 @@
         font-size: 1.5rem;       /* arrows scale down, too */
       }
     }
+
+    /* otherwise, keep them hidden (even if you “tap” in emulation) */
+    @media not all and (hover: hover) and (pointer: fine) {
+      .slider-btn {
+        opacity: 0 !important;
+        pointer-events: none !important;
+      }
+    }
+
+    #project-details-container {
+      /* remove the global opacity so your text stays nice and sharp */
+      opacity: 1;
+      background: rgba(255,255,255,0.9);  /* only the background is translucent */
+      
+      /* make sure this sits on top of the slider’s stacking context */
+      z-index: 20;
+    }
+
   </style>
 </head>
 <body>
@@ -386,17 +387,38 @@
     <div class="slider-container">
       <div class="slider-wrapper" id="sliderWrapper">
         <div class="slider" id="slider">
-          <img src="School_model2.webp" alt="Civic Centre Model" />
-          <img src="School_model.webp" alt="Civic Centre Model" />
-          <img src="Portrait_Render.webp" alt="Civic Centre Perspective Render" />
-          <img src="perspective_sketch.webp" alt="Civic Centre Perspective Sketch" />
-          <img src="School_Section.webp" alt="Perspective Section" />
-          <img src="Section_Detail1.webp" alt="Section Detail 1" />
-          <img src="Section_Detail2.webp" alt="Section Detail 2" />
-          <img src="Section_Detail3.webp" alt="Section Detail 3" />
-          <img src="perspective_plan.webp" alt="Perspective Plan" />
-          <img src="master_plan.webp" alt="Master Plan" />
+          <div class="magnifier-container">
+            <img src="School_model2.webp" alt="Civic Centre Model" />
+          </div>
+          <div class="magnifier-container">
+            <img src="School_model.webp" alt="Civic Centre Model" />
+          </div>
+          <div class="magnifier-container">
+            <img src="Portrait_Render.webp" alt="Civic Centre Perspective Render" />
+          </div>
+          <div class="magnifier-container">
+            <img src="perspective_sketch.webp" alt="Civic Centre Perspective Sketch" />
+          </div>
+          <div class="magnifier-container">
+            <img src="School_Section.webp" alt="Perspective Section" />
+          </div>
+          <div class="magnifier-container">
+            <img src="Section_Detail1.webp" alt="Section Detail 1" />
+          </div>
+          <div class="magnifier-container">
+            <img src="Section_Detail2.webp" alt="Section Detail 2" />
+          </div>
+          <div class="magnifier-container">
+            <img src="Section_Detail3.webp" alt="Section Detail 3" />
+          </div>
+          <div class="magnifier-container">
+            <img src="perspective_plan.webp" alt="Perspective Plan" />
+          </div>
+          <div class="magnifier-container">
+            <img src="master_plan.webp" alt="Master Plan" />
+          </div>
         </div>
+  
         <button class="slider-btn prev" onclick="moveSlide(-1)">
           <i class="ph ph-arrow-left"></i>
         </button>
@@ -406,71 +428,171 @@
       </div>
     </div>
   </main>
+  
 
   <div id="imageModal">
     <img id="modalImg" style="max-width:90%; max-height:90%;" />
   </div>
 
   <script>
-    const slider = document.getElementById('slider');
-    const slides = Array.from(slider.children);
-    const totalSlides = slides.length;
-    let currentSlide = 1;
-
-    // Clone first & last slides for looping
-    const firstClone = slides[0].cloneNode(true);
-    const lastClone = slides[totalSlides - 1].cloneNode(true);
-    slider.appendChild(firstClone);
-    slider.insertBefore(lastClone, slides[0]);
-
-    // Set width & initial position
-    const allSlides = slider.querySelectorAll('img');
-    slider.style.width = `${allSlides.length * 100}%`;
-    slider.style.transform = `translateX(-${100 * currentSlide}%)`;
-
-    function moveSlide(direction) {
-      if (slider.isTransitioning) return;
-      slider.isTransitioning = true;
-
+    document.addEventListener('DOMContentLoaded', () => {
+      const slider    = document.getElementById('slider');
+      const prevBtn   = document.querySelector('.slider-btn.prev');
+      const nextBtn   = document.querySelector('.slider-btn.next');
+      const slides    = Array.from(slider.children);
+      const total     = slides.length;
+      let currentSlide  = 1;
+      let isTransitioning = false;
+    
+      // 1) Infinite‐loop clones
+      const firstClone = slides[0].cloneNode(true);
+      const lastClone  = slides[total - 1].cloneNode(true);
+      slider.appendChild(firstClone);
+      slider.insertBefore(lastClone, slider.firstChild);
+    
+      // 2) Track sizing & initial position
+      const slideEls = slider.children;
+      slider.style.width      = `${slideEls.length * 100}%`;
+      slider.style.transition = 'none';
+      slider.style.transform  = `translateX(-${100 * currentSlide}%)`;
+      void slider.offsetWidth;
       slider.style.transition = 'transform 1s ease-in-out';
-      currentSlide += direction;
-      slider.style.transform = `translateX(-${100 * currentSlide}%)`;
-
-      slider.addEventListener('transitionend', function handler() {
-        slider.removeEventListener('transitionend', handler);
-
-        if (currentSlide === 0) {
-          slider.style.transition = 'none';
-          currentSlide = totalSlides;
-          slider.style.transform = `translateX(-${100 * currentSlide}%)`;
-          void slider.offsetWidth;
-          slider.style.transition = 'transform 1s ease-in-out';
-        }
-
-        if (currentSlide === totalSlides + 1) {
-          slider.style.transition = 'none';
-          currentSlide = 1;
-          slider.style.transform = `translateX(-${100 * currentSlide}%)`;
-          void slider.offsetWidth;
-          slider.style.transition = 'transform 1s ease-in-out';
-        }
-
-        slider.isTransitioning = false;
-      });
-    }
-
-    function toggleContainer() {
-      const container = document.getElementById('project-details-container');
-      container.classList.toggle('show');
-      if (!container.classList.contains('show')) {
-        document.getElementById('sub-details').classList.remove('show');
+    
+      // 3) Slide movement + wrap logic
+      function moveSlide(direction) {
+        if (isTransitioning) return;
+        isTransitioning = true;
+        currentSlide += direction;
+        slider.style.transform = `translateX(-${100 * currentSlide}%)`;
+        slider.style.transition = 'transform 1s ease-in-out';
+    
+        slider.addEventListener('transitionend', function handler() {
+          slider.removeEventListener('transitionend', handler);
+          if (currentSlide === 0) {
+            slider.style.transition = 'none';
+            currentSlide = total;
+            slider.style.transform = `translateX(-${100 * currentSlide}%)`;
+            void slider.offsetWidth;
+            slider.style.transition = 'transform 1s ease-in-out';
+          }
+          if (currentSlide === total + 1) {
+            slider.style.transition = 'none';
+            currentSlide = 1;
+            slider.style.transform = `translateX(-${100 * currentSlide}%)`;
+            void slider.offsetWidth;
+            slider.style.transition = 'transform 1s ease-in-out';
+          }
+          isTransitioning = false;
+        });
       }
-    }
+      window.moveSlide = moveSlide;
+    
+      // 4) Arrow buttons
+      prevBtn.addEventListener('click', () => moveSlide(-1));
+      nextBtn.addEventListener('click', () => moveSlide(1));
+    
+      // 5) Touch‐swipe for mobile
+      let touchStartX = null;
+      slider.addEventListener('touchstart', e => {
+        touchStartX = e.touches[0].clientX;
+      }, { passive: true });
+      slider.addEventListener('touchend', e => {
+        if (touchStartX === null) return;
+        const dx = touchStartX - e.changedTouches[0].clientX;
+        if (Math.abs(dx) > 50) moveSlide(dx > 0 ? 1 : -1);
+        touchStartX = null;
+      });
+    
+      // 6) DETAILS toggles
+      window.toggleContainer = () => {
+        const c = document.getElementById('project-details-container');
+        c.classList.toggle('show');
+        if (!c.classList.contains('show')) {
+          document.getElementById('sub-details').classList.remove('show');
+        }
+      };
+      window.toggleSubDetails = () => {
+        document.getElementById('sub-details').classList.toggle('show');
+      };
+    
+      // 7) Magnifier‐lens setup (desktop‐hover only)
+      /* if (window.matchMedia('(hover: hover)').matches) {
+        const zoomFactor   = 2;
+        const lensDiameter = 150;
+    
+        Array.from(slider.children).forEach(el => {
+          const img = el.querySelector('img');
+          if (!img) return;
+    
+          const lens = document.createElement('div');
+          lens.className = 'magnifier-lens';
+          el.appendChild(lens);
+    
+          const setLensBackground = () => {
+            const { width, height } = img.getBoundingClientRect();
+            lens.style.backgroundImage = `url('${img.src}')`;
+            lens.style.backgroundSize  =
+              `${width * zoomFactor}px ${height * zoomFactor}px`;
+          };
+          setLensBackground();
+          window.addEventListener('resize', setLensBackground);
+    
+          function moveLens(e) {
+            e.preventDefault();
 
-    function toggleSubDetails() {
-      const sub = document.getElementById('sub-details');
-      sub.classList.toggle('show');
-    }
-  </script>
+            const rect     = img.getBoundingClientRect();
+            const zoom     = zoomFactor;    // e.g. 2
+            const size     = lensDiameter;  // e.g. 150
+            const half     = size / 2;
+
+            // coordinates of the pointer **inside** the image
+            let x = e.clientX - rect.left;
+            let y = e.clientY - rect.top;
+
+            // clamp so the lens never leaves the image
+            x = Math.max(half, Math.min(x, rect.width  - half));
+            y = Math.max(half, Math.min(y, rect.height - half));
+
+            // position the **top-left** of the lens so its center is at (x,y)
+            lens.style.left = `${x - half}px`;
+            lens.style.top  = `${y - half}px`;
+
+            // background is the zoomed img.  We want pixel (x,y)
+            // in the source to land at (half,half) in the lens.
+            // The formula is: bgPos = -(x*zoom - half)
+            lens.style.backgroundPosition =
+              `-${x * zoom - half}px -${y * zoom - half}px`;
+
+              console.log({
+              cursorX: x,
+              cursorY: y,
+              lensLeft: x - half,
+              lensTop:  y - half,
+              bgPosX:  -(x * zoomFactor) + half,
+              bgPosY:  -(y * zoomFactor) + half
+            });
+          }
+    
+          el.addEventListener('mouseenter', () => lens.style.display = 'block');
+          el.addEventListener('mousemove',  moveLens);
+          el.addEventListener('mouseleave', () => lens.style.display = 'none');
+        });
+      } */
+    }); 
+    
+    // click‐flash for header elements
+    document.querySelectorAll(
+      'header .play-title, header .header-right, header .sub-header, header .hamburger-icon, header #filterToggle, header #menu-container a, header .filter-list a'
+    ).forEach(el => {
+      el.addEventListener('click', e => {
+        const t = e.currentTarget;
+        t.classList.add('flash');
+        t.addEventListener('animationend', () => {
+          t.classList.remove('flash');
+        }, { once: true });
+      });
+    });
+    </script>
+
 </body>
 </html>
