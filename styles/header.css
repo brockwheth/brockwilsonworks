@@ -1,44 +1,398 @@
-@font-face {
-    font-family: 'Helvetica Neue Thin';
-    src: url('https://fonts.cdnfonts.com/s/14479/HelveticaNeue-Thin.woff') format('woff');
-  }
-  
-  header {
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    padding: 30px 40px;
-    z-index: 1000;
-    background-color: transparent;
-    font-size: 1rem;
-    text-align: center;
+/*────────────────────────────────────────────────────────
+  0) Typeface + root font-sizing
+────────────────────────────────────────────────────────*/
 
+
+@font-face {
+  font-family: 'Helvetica Neue Thin';
+  src: url('https://fonts.cdnfonts.com/s/14479/HelveticaNeue-Thin.woff') format('woff');
+}
+
+html {
+  font-size: 1rem; /* 16px */
+}
+@media (max-width: 992px) {
+  html { font-size: 0.9rem; } /* 14.4px */
+}
+@media (max-width: 576px) {
+  html { font-size: 0.75rem; } /* 12px */
+}
+
+/*────────────────────────────────────────────────────────
+  1) HEADER LAYOUT
+────────────────────────────────────────────────────────*/
+body {
+  /* 16×16 SVG circle, stroke #92969a, no fill */
+  cursor: url("data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxNiIgaGVpZ2h0PSIxNiI+PGNpcmNsZSBjeD0iOCIgY3k9IjgiIHI9IjciIGZpbGw9Im5vbmUiIHN0cm9rZT0iIzkyOTY5YSIgc3Ryb2tlLXdpZHRoPSIyIi8+PC9zdmc+") 8 8, auto;
+}
+
+header .play-title,
+header .header-right,
+header .hamburger-icon,
+header #filterToggle,
+header #menu-container a,
+header .filter-list a,
+a, button {
+  cursor: pointer;
+}
+
+:root {
+  --hdr-pad-desktop: 40px;
+  --hdr-pad-mobile: 20px;
+}
+
+header {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  padding: var(--hdr-pad-desktop) 20px 0;
+  background-color: #fff;
+  text-align: center;
+  z-index: 1000;
+}
+
+@media (max-width: 576px) {
+  header {
+    padding: var(--hdr-pad-mobile);
   }
-  
-  .play-title {
-    font-size: 1rem;
-    margin: 0;
-    cursor: pointer;
-    display: inline-block;
-    color: #92969a;
-    text-transform: uppercase;
-    font-family: 'Helvetica Neue Thin', 'Helvetica Neue', Helvetica, Arial, sans-serif;
-    text-decoration: none;
+}
+
+/*────────────────────────────────────────────────────────
+  2) SITE TITLE, DETAILS TOGGLE & HAMBURGER ICON
+────────────────────────────────────────────────────────*/
+header .play-title,
+header .header-right,
+header .hamburger-icon {
+  position: absolute;
+  top: var(--hdr-pad-desktop);
+  right: 20px;           /* override below for .play-title */
+  margin: 0;
+  color: #92969a;
+  text-transform: uppercase;
+  cursor: pointer;
+  z-index: 1001;
+  transition: color 0.3s;
+  font-weight:  normal;
+}
+
+/* play-title on left */
+header .play-title {
+  left: 20px;
+  right: auto;
+  font-family: 'Helvetica Neue Thin', Helvetica, Arial, sans-serif;
+  font-size: clamp(0.85rem, 4vw, 1rem);
+  white-space: nowrap;
+}
+
+/* DETAILS toggle on the right */
+header .header-right {
+  font-size: clamp(0.85rem, 3vw, 0.9rem);
+}
+
+/* Hamburger icon (highest right) */
+header .hamburger-icon {
+  font-size: clamp(1.5rem, 3vw, 1.8rem);
+  right: 20px;
+}
+
+@media (max-width: 576px) {
+  header .play-title,
+  header .header-right,
+  header .hamburger-icon {
+    top: var(--hdr-pad-mobile);
+    font-size: 0.75rem;  /* tighten up on phones */
   }
-  
-  .play-title:hover {
+}
+
+/*────────────────────────────────────────────────────────
+  3) BODY PADDING TO PUSH CONTENT BELOW HEADER
+────────────────────────────────────────────────────────*/
+body {
+  padding-top: calc(var(--hdr-pad-desktop) + 1em);
+}
+@media (max-width: 576px) {
+  body {
+    padding-top: calc(var(--hdr-pad-mobile) + 1em);
+  }
+}
+
+/*────────────────────────────────────────────────────────
+  4) DETAILS PANEL (PROJECTS DROPDOWN)
+────────────────────────────────────────────────────────*/
+header #project-details-container {
+  position: absolute;
+  top: calc(var(--hdr-pad-desktop) + clamp(0.85rem, 4vw, 1rem) + 8px);
+  right: 20px;
+  max-width: 400px;
+  background: rgba(255,255,255,0.9);
+  border-radius: 5px;
+  display: none;
+  z-index: 1002;
+  box-shadow: none;
+  text-transform: none;
+}
+
+header #project-details-container.show {
+  display: block;
+}
+
+/*────────────────────────────────────────────────────────
+  5) HAMBURGER MENU & FILTER LIST
+────────────────────────────────────────────────────────*/
+/* 5) HAMBURGER MENU & FILTER LIST – tweak horizontal spacing */
+
+header #menu-container ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+header #menu-container {
+  position: absolute;
+  top: calc(var(--hdr-pad-desktop) + clamp(0.85rem, 4vw, 1rem) + 8px);
+  right: 20px;
+  display: none;               /* keep it hidden by default */
+  text-transform: uppercase;
+  text-align: right;
+  min-width: 160px;            /* stable width */
+  z-index: 1002;
+}
+
+header #menu-container.show {
+  display: block;              /* only when .show is toggled */
+}
+
+header #menu-container li {
+  padding: 8px 0;         /* only vertical spacing now */
+}
+
+header #menu-container li a {
+  display: block;
+  width: 100%;            /* fill full width of container */
+  padding: 8px 20px 8px 0; /* top/right/bottom/left */
+  text-align: right;      /* push text to the very right */
+  font-size: 0.9rem;
+  color: #92969a;
+  text-decoration: none;
+  transition: color 0.3s;
+}
+
+/* nested filters */
+header .filter-list li {
+  padding: 6px 0;
+}
+
+header .filter-list a {
+  display: block;
+  width: 100%;
+  padding: 6px 20px 6px 0;
+  text-align: right;
+  text-transform: uppercase;
+  transition: color 0.2s;
+  list-style: none;
+}
+
+/* nested filter lists */
+header .filter-list {
+  list-style: none;
+  margin: 0;
+  padding: 0 0 0 10px;
+  display: none;
+}
+
+header .has-filters.open .filter-list {
+  display: block;
+}
+
+header .filter-list li {
+  padding: 6px 0;
+}
+
+header .filter-list a {
+  display: block;
+  text-align: right;
+  font-size: 0.9rem;
+  color: #92969a;
+  text-transform: uppercase;
+  text-decoration: none;
+  transition: color 0.2s;
+  list-style: none;
+}
+
+header #filterToggle {
+  display: block;              /* take up the full menu width */
+  width: 100%;
+  padding: 8px 20px 8px 0;     /* match your li a padding */
+  text-align: right;           /* push the text/arrow to the right */
+  position: relative;
+  overflow: hidden;
+  cursor: pointer;
+}
+
+header #filterToggle .filter-text {
+  display: inline-block;       /* so we can fade it separately */
+  vertical-align: middle;
+}
+
+header #filterToggle::after {
+  content: '▾';
+  position: absolute;
+  top: 50%;
+  right: 20px;                    /* flush against the right padding */
+  transform: translateY(-50%);
+  color: #428f70;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+header #filterToggle:hover .filter-text {
+  opacity: 0;
+}
+
+header #filterToggle:hover::after {
+  opacity: 1;
+}
+
+#about-popup .close-btn {
+  position: absolute;
+  top:    var(--hdr-pad-desktop);
+  right:  20px;
+  background: none;
+  border:     none;
+  font-size:  clamp(1.5rem, 3vw, 1.8rem);
+  color:      #92969a;
+  cursor:     pointer;
+  z-index:    1003;
+  display:     none;                /* hidden until shown */
+}
+
+#about-popup.show .close-btn {
+  display: block;                   /* show when overlay is active */
+}
+
+#about-popup .close-btn:hover {
+  color: #428f70;
+}
+
+@media (max-width: 576px) {
+  #about-popup .close-btn {
+    top:       var(--hdr-pad-mobile);
+    font-size: 0.75rem;
+  }
+}
+
+/* ── Mobile fixes: pull the menu up and shrink its text ── */
+@media (max-width: 576px) {
+  /* 1) Re-position the dropdown under the 20px-padded header */
+  header #menu-container {
+    top: calc(
+      var(--hdr-pad-mobile)      /* 20px header pad */
+      + 1em                       /* ≈ title height on mobile */
+      + 8px                       /* gap below title */
+    ) !important;
+  }
+
+  /* 2) Shrink the menu items so they match your other header text */
+  header #menu-container li a,
+  header .filter-list a {
+    font-size: 0.75rem;          /* 0.75 * 12px = 9px on phones */
+  }
+}
+
+.project-slider {
+  display: flex;
+  overflow-x: auto;                    /* allow horizontal scroll */
+  -webkit-overflow-scrolling: touch;    /* smooth momentum on iOS */
+  scroll-snap-type: x mandatory;       /* snap to each image */
+}
+
+.project-slider > * {
+  flex: 0 0 auto;                      /* items don’t shrink or wrap */
+  scroll-snap-align: start;            /* snap each item to the left edge */
+}
+
+.magnifier-container {
+  position: relative;
+  overflow: hidden; /* keep the lens clipped to the image */
+}
+
+.magnifier-lens {
+  display: none;               /* shown on hover / tap */
+  position: absolute;
+  width: 150px;                /* adjust diameter */
+  height: 150px;
+  pointer-events: none;        /* let clicks pass through */
+  background-repeat: no-repeat;
+  /* zoomFactor × original image size: set in JS */
+  z-index: 999;
+}
+
+a {
+  color: #428f70;      /* your green */
+  text-decoration: none; /* optional: remove underline */
+}
+
+a:hover,
+a:focus,
+a:active,
+a:visited {
+  color: #428f70;      /* keep it green in every state */
+}
+
+/*  ——— Flash animation ——— */
+@keyframes flashFade {
+  from { color: #428f70; }
+  to   { color: #92969a; }
+}
+
+.flash {
+  animation: flashFade 0.4s ease-out;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  header .play-title:hover,
+  header .header-right:hover,
+  header .hamburger-icon:hover,
+  header .play-title:hover,
+  header .header-right:hover,
+  header .sub-header:hover,
+  header #menu-container a:hover,
+  header #menu-container a:hover,
+  header .filter-list a:hover,
+  header .filter-list a:hover,
+  header #filterToggle:hover,
+  header #filterToggle:hover .filter-text
+  header #filterToggle:hover::after {
     color: #428f70;
   }
+}
 
-  .close-btn {
-    display: none !important;
-  }
-  /* only show on About */
-  body.about-page .close-btn {
-    display: block !important;
-  }
-  
-  header {
-    padding: 40px 20px 0 !important;
-  }
+header .play-title:hover {
+  color: transparent !important;
+}
+header .play-title:hover .sound-icon {
+  opacity: 1;
+}
+
+.project-header {
+  background: transparent !important;
+}
+
+header.project-header,
+header.project-header:hover {
+  visibility: visible !important;
+  display: block        !important;
+  opacity: 1            !important;
+}
+
+/* 2) Make sure the title stays visible and green on hover */
+header.project-header .play-title,
+header.project-header .play-title:visited {
+  visibility: visible !important;
+  opacity: 1            !important;
+  color:   #92969a      !important;
+}
+
+/* 3) Remove any other color‐change on hover */
+header.project-header .play-title:hover {
+  color: #428f70 !important;
+}
