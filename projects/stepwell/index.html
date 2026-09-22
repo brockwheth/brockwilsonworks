@@ -492,42 +492,6 @@
 
     }
 
-    /*────────────────────────────────────────────────────────
-      DARK  ·  same form, inverted ground
-
-      Neumorphism does not invert by swapping black for white: on a
-      dark ground the highlight has far less headroom than the shadow,
-      so the light rim carries a much lower alpha and the dark one a
-      higher alpha than their light-mode counterparts.
-    ────────────────────────────────────────────────────────*/
-    @media (prefers-color-scheme: dark) {
-      body.clay {
-        --clay-bg:          #24262A;
-        --clay-face:        #2A2C31;   /* grain lightens on dark, so the face starts lower */
-
-        --clay-light:       rgba(255, 255, 255, 0.055);
-        --clay-dark:        rgba(0, 0, 0, 0.55);
-
-        --clay-bevel-light: rgba(255, 255, 255, 0.075);
-        --clay-bevel-dark:  rgba(0, 0, 0, 0.42);
-
-        --clay-grain:       0.40;
-      }
-
-      /* on a dark ground the light specks carry the texture */
-      body.clay .clay-card::after {
-        opacity: calc(var(--clay-grain) * 0.75);
-      }
-
-      body.clay header.project-header { background-color: var(--clay-bg); }
-      body.clay #project-details-container { background: rgba(42, 44, 49, 0.94); }
-      body.clay .desc,
-      body.clay .info,
-      body.clay h2.sub-header,
-      body.clay .play-title,
-      body.clay .header-right { color: #9AA0A6; }
-    }
-
     @media (max-width: 992px) {
       body.clay {
         --clay-mat:    0px;
