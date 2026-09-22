@@ -370,7 +370,11 @@
       /* keep the neighbouring card's bleed (offset + blur) out of view */
       --clay-gutter:      48px;
       --clay-img-radius:  6px;
-      --clay-img-max-h:   66vh;
+      /* breathing room for the shadow: it reaches offset + about half
+         the blur past the card edge */
+      --clay-room:        calc(var(--clay-offset) + var(--clay-blur) * 0.6);
+      /* keep the whole card, shadows included, inside the viewport */
+      --clay-img-max-h:   min(62vh, calc(100vh - 2 * (var(--clay-room) + var(--clay-mat)) - 170px));
       --clay-track:       min(900px, calc(100vw - 40px));
       --clay-img-max-w:   calc(var(--clay-track) - 2 * (var(--clay-gutter) + var(--clay-mat)));
 
@@ -383,8 +387,8 @@
 
     /* room for the shadows inside the slider's clip box */
     body.clay .slider-container {
-      overflow: hidden;
-      padding: calc(var(--clay-offset) + var(--clay-blur)) 0;
+      overflow: hidden;   /* horizontal clipping for the carousel */
+      padding: 0;
       margin: 20px auto;
       width: 100%;
       box-sizing: border-box;
@@ -393,6 +397,14 @@
     body.clay .slider .magnifier-container {
       align-items: center;
       justify-content: center;
+      /* the base stylesheet clips this box (for the magnifier lens),
+         which cut the card's top and bottom shadows off flush - the
+         left and right survived only because the gutter sits inside
+         the slide. Let them out; .slider-container still does the
+         horizontal clipping for the carousel. */
+      overflow: visible;
+      padding: var(--clay-room) 0;
+      box-sizing: border-box;
     }
 
     /* the extruded pad: flat face, no border, form from shadow alone */
