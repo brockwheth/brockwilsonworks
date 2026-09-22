@@ -456,6 +456,11 @@
       inset: 0;
       border-radius: inherit;
       pointer-events: none;
+      /* the card is an inline-flex container; without an explicit stacking
+         position these overlays paint UNDER the image and only ever show
+         in the mat ring, so neither the rim nor the grain reached the
+         picture at all */
+      z-index: 1;
     }
 
     /* The rim curving away. As an inset shadow on the card itself this
