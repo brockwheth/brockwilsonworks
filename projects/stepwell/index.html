@@ -347,51 +347,44 @@
 
     /*────────────────────────────────────────────────────────
       CLAY  ·  extruded image cards (stepwell pilot)
-      Translated from the neumorphism spec to the site's
-      neutral palette. Every value is a variable so the
-      look can be tuned in one place.
+
+      Per the reference spec: the card face is the SAME colour as
+      the page, with no gradient and no border. All of the form
+      comes from two diagonal shadows - white up-left, a cool dark
+      down-right at low opacity. A gradient or a light border is
+      what makes this read as glass instead of clay.
     ────────────────────────────────────────────────────────*/
     body.clay {
-      /* surfaces - the page sits DARKER than the card face,
-         which is what makes the card read as extruded.
-         Mirrors the reference's value relationships. */
-      --clay-bg:          #DCDEE3;
-      --clay-face-top:    #EBEDF1;
-      --clay-face-bottom: #DFE2E7;
-      --clay-border:      #FFFFFF;
+      /* one surface colour for page and card alike */
+      --clay-bg:          #E5E5E5;
 
-      /* shadows: light above, dark below */
-      --clay-lift:        30px;
-      --clay-blur:        60px;
-      --clay-light:       rgba(255, 255, 255, 0.85);
-      --clay-dark:        rgba(126, 136, 152, 0.55);
-
-      /* the image rests ON the mount, so it casts its own small shadow */
-      --clay-img-shadow:  0 2px 6px rgba(120, 129, 145, 0.30);
+      /* shadow geometry: diagonal, per spec (X and Y both +/-30, blur 50) */
+      --clay-offset:      30px;
+      --clay-blur:        50px;
+      --clay-light:       rgba(255, 255, 255, 0.70);
+      --clay-dark:        rgba(13, 39, 80, 0.16);
 
       /* geometry */
-      --clay-radius:      28px;
-      --clay-mat:         32px;   /* card surface visible around the image */
-      --clay-gutter:      48px;   /* keeps a neighbour's blur out of view */
-      --clay-img-radius:  10px;
+      --clay-radius:      32px;
+      --clay-mat:         46px;
+      /* keep the neighbouring card's bleed (offset + blur) out of view */
+      --clay-gutter:      48px;
+      --clay-img-radius:  6px;
       --clay-img-max-h:   66vh;
-      /* definite width for the image, so the shrink-wrapping card has
-         something to resolve against (a percentage here is cyclic and
-         blows the card past the viewport on narrow screens) */
-      --clay-track:       min(900px, calc(100vw - 40px));  /* 900px cap, minus main's side padding */
-      --clay-img-max-w:   calc(var(--clay-track) - 2 * (var(--clay-gutter) + var(--clay-mat)) - 4px);
+      --clay-track:       min(900px, calc(100vw - 40px));
+      --clay-img-max-w:   calc(var(--clay-track) - 2 * (var(--clay-gutter) + var(--clay-mat)));
 
       background-color: var(--clay-bg);
     }
 
-    /* chrome stays flat - just stop the header reading as a white band */
+    /* chrome stays flat - just keep the header on the same ground */
     body.clay header.project-header { background-color: var(--clay-bg); }
-    body.clay #project-details-container { background: rgba(242, 243, 245, 0.92); }
+    body.clay #project-details-container { background: rgba(229, 229, 229, 0.94); }
 
-    /* room for the vertical shadows inside the slider's clip box */
+    /* room for the shadows inside the slider's clip box */
     body.clay .slider-container {
       overflow: hidden;
-      padding: calc(var(--clay-lift) + var(--clay-blur)) 0;
+      padding: calc(var(--clay-offset) + var(--clay-blur)) 0;
       margin: 20px auto;
       width: 100%;
       box-sizing: border-box;
@@ -402,23 +395,23 @@
       justify-content: center;
     }
 
-    /* the extruded card itself */
+    /* the extruded pad: flat face, no border, form from shadow alone */
     body.clay .clay-card {
       display: inline-flex;
       margin: 0 var(--clay-gutter);
       padding: var(--clay-mat);
       border-radius: var(--clay-radius);
-      border: 1px solid var(--clay-border);
-      background: linear-gradient(180deg, var(--clay-face-top) 0%, var(--clay-face-bottom) 100%);
+      background: var(--clay-bg);
       box-shadow:
-        0 calc(-1 * var(--clay-lift)) var(--clay-blur) var(--clay-light),
-        0 var(--clay-lift) var(--clay-blur) var(--clay-dark);
+        calc(-1 * var(--clay-offset)) calc(-1 * var(--clay-offset)) var(--clay-blur) var(--clay-light),
+        var(--clay-offset) var(--clay-offset) var(--clay-blur) var(--clay-dark);
       box-sizing: border-box;
       min-width: 0;
       max-width: 100%;
     }
 
-    /* the image sits on the mount, not bleeding to the edge */
+    /* the image rests flat on the pad - no shadow of its own, since
+       most of these files already carry a white margin of their own */
     body.clay .slider .magnifier-container .clay-card img {
       width: auto;
       max-width: var(--clay-img-max-w);
@@ -427,26 +420,25 @@
       object-fit: contain;
       display: block;
       border-radius: var(--clay-img-radius);
-      box-shadow: var(--clay-img-shadow);
     }
 
     @media (max-width: 992px) {
       body.clay {
-        --clay-mat:    20px;
-        --clay-gutter: 28px;
-        --clay-radius: 20px;
-        --clay-lift:   20px;
-        --clay-blur:   40px;
+        --clay-mat:    30px;
+        --clay-gutter: 34px;
+        --clay-radius: 24px;
+        --clay-offset: 20px;
+        --clay-blur:   34px;
       }
     }
 
     @media (max-width: 576px) {
       body.clay {
-        --clay-mat:       12px;
-        --clay-gutter:    14px;
-        --clay-radius:    16px;
-        --clay-lift:      14px;
-        --clay-blur:      28px;
+        --clay-mat:       18px;
+        --clay-gutter:    24px;
+        --clay-radius:    18px;
+        --clay-offset:    14px;
+        --clay-blur:      24px;
         --clay-img-max-h: 58vh;
       }
     }
