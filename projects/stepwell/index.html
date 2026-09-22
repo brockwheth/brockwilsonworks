@@ -357,6 +357,9 @@
     body.clay {
       /* one surface colour for page and card alike */
       --clay-bg:          #E5E5E5;
+      /* the grain darkens the face slightly, so the face is mixed a
+         touch lighter - it renders back to exactly --clay-bg */
+      --clay-face:        #EFEFEF;
 
       /* shadow geometry: diagonal, per spec (X and Y both +/-30, blur 50) */
       --clay-offset:      30px;
@@ -370,6 +373,9 @@
       /* keep the neighbouring card's bleed (offset + blur) out of view */
       --clay-gutter:      48px;
       --clay-img-radius:  6px;
+      /* how far the image dissolves into the card face */
+      --clay-fade:        15%;
+      --clay-grain:       0.55;
       /* breathing room for the shadow: it reaches offset + about half
          the blur past the card edge */
       --clay-room:        calc(var(--clay-offset) + var(--clay-blur) * 0.6);
@@ -413,13 +419,40 @@
       margin: 0 var(--clay-gutter);
       padding: var(--clay-mat);
       border-radius: var(--clay-radius);
-      background: var(--clay-bg);
+      background: var(--clay-face);
       box-shadow:
         calc(-1 * var(--clay-offset)) calc(-1 * var(--clay-offset)) var(--clay-blur) var(--clay-light),
         var(--clay-offset) var(--clay-offset) var(--clay-blur) var(--clay-dark);
       box-sizing: border-box;
       min-width: 0;
       max-width: 100%;
+      position: relative;
+      isolation: isolate;   /* keep the grain blending inside the card */
+    }
+
+    /* Fine grain across the whole card - image and mount alike - so the
+       two read as one material and the dissolve looks dusty rather than
+       like a CSS opacity ramp. Two alpha-modulated layers (dark specks
+       and light specks) rather than a blended grey noise: on a surface
+       this light, overlay/soft-light compress the noise to nothing. */
+    body.clay .clay-card::before,
+    body.clay .clay-card::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      border-radius: inherit;
+      pointer-events: none;
+      background-size: 200px 200px;
+    }
+
+    body.clay .clay-card::before {      /* dark specks */
+      opacity: calc(var(--clay-grain) * 0.60);
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='g'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3' seed='2' stitchTiles='stitch'/%3E%3CfeColorMatrix type='matrix' values='0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0 0 0 -0.38'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23g)'/%3E%3C/svg%3E");
+    }
+
+    body.clay .clay-card::after {       /* light specks */
+      opacity: calc(var(--clay-grain) * 0.45);
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='g'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3' seed='7' stitchTiles='stitch'/%3E%3CfeColorMatrix type='matrix' values='0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 1 0 0 0 -0.38'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23g)'/%3E%3C/svg%3E");
     }
 
     /* the image rests flat on the pad - no shadow of its own, since
@@ -432,6 +465,27 @@
       object-fit: contain;
       display: block;
       border-radius: var(--clay-img-radius);
+
+      /* two axis ramps intersected = a soft-edged rectangle. The stops
+         are eased, not linear, so the falloff has no visible shoulder. */
+      --ramp: transparent 0%,
+              rgba(0,0,0,0.10) calc(var(--clay-fade) * 0.30),
+              rgba(0,0,0,0.38) calc(var(--clay-fade) * 0.55),
+              rgba(0,0,0,0.72) calc(var(--clay-fade) * 0.78),
+              rgba(0,0,0,0.93) calc(var(--clay-fade) * 0.91),
+              #000 var(--clay-fade),
+              #000 calc(100% - var(--clay-fade)),
+              rgba(0,0,0,0.93) calc(100% - var(--clay-fade) * 0.91),
+              rgba(0,0,0,0.72) calc(100% - var(--clay-fade) * 0.78),
+              rgba(0,0,0,0.38) calc(100% - var(--clay-fade) * 0.55),
+              rgba(0,0,0,0.10) calc(100% - var(--clay-fade) * 0.30),
+              transparent 100%;
+      -webkit-mask-image: linear-gradient(to right, var(--ramp)),
+                          linear-gradient(to bottom, var(--ramp));
+              mask-image: linear-gradient(to right, var(--ramp)),
+                          linear-gradient(to bottom, var(--ramp));
+      -webkit-mask-composite: source-in;
+              mask-composite: intersect;
     }
 
     @media (max-width: 992px) {
