@@ -367,14 +367,23 @@
       --clay-light:       rgba(255, 255, 255, 0.70);
       --clay-dark:        rgba(13, 39, 80, 0.16);
 
+      /* inner bevel - the rim curving away, so the card reads as a
+         pillowed form rather than a flat slab with a cut edge. Lit on
+         the inner top-left, falling away on the inner bottom-right,
+         matching the outer light direction. */
+      --clay-bevel:       26px;
+      --clay-bevel-blur:  42px;
+      --clay-bevel-light: rgba(255, 255, 255, 0.85);
+      --clay-bevel-dark:  rgba(13, 39, 80, 0.10);
+
       /* geometry */
-      --clay-radius:      32px;
-      --clay-mat:         46px;
+      --clay-radius:      42px;
+      --clay-mat:         26px;
       /* keep the neighbouring card's bleed (offset + blur) out of view */
       --clay-gutter:      48px;
       --clay-img-radius:  6px;
       /* how far the image dissolves into the card face */
-      --clay-fade:        15%;
+      --clay-fade:        9%;
       --clay-grain:       0.55;
       /* breathing room for the shadow: it reaches offset + about half
          the blur past the card edge */
@@ -421,6 +430,7 @@
       border-radius: var(--clay-radius);
       background: var(--clay-face);
       box-shadow:
+        /* the pad sitting above the page */
         calc(-1 * var(--clay-offset)) calc(-1 * var(--clay-offset)) var(--clay-blur) var(--clay-light),
         var(--clay-offset) var(--clay-offset) var(--clay-blur) var(--clay-dark);
       box-sizing: border-box;
@@ -430,11 +440,8 @@
       isolation: isolate;   /* keep the grain blending inside the card */
     }
 
-    /* Fine grain across the whole card - image and mount alike - so the
-       two read as one material and the dissolve looks dusty rather than
-       like a CSS opacity ramp. Two alpha-modulated layers (dark specks
-       and light specks) rather than a blended grey noise: on a surface
-       this light, overlay/soft-light compress the noise to nothing. */
+    /* Both overlays sit ABOVE the image, so the rim and the grain run
+       continuously across mount and picture alike. */
     body.clay .clay-card::before,
     body.clay .clay-card::after {
       content: "";
@@ -442,21 +449,28 @@
       inset: 0;
       border-radius: inherit;
       pointer-events: none;
-      background-size: 200px 200px;
     }
 
-    body.clay .clay-card::before {      /* dark specks */
+    /* The rim curving away. As an inset shadow on the card itself this
+       painted UNDER the image, which left the picture looking flush with
+       a flat face; on an overlay it washes over the image's own edges,
+       so card and image become one continuous surface. */
+    body.clay .clay-card::before {
+      box-shadow:
+        inset var(--clay-bevel) var(--clay-bevel) var(--clay-bevel-blur) var(--clay-bevel-light),
+        inset calc(-1 * var(--clay-bevel)) calc(-1 * var(--clay-bevel)) var(--clay-bevel-blur) var(--clay-bevel-dark);
+    }
+
+    /* Grain - dark specks and light specks stacked in one layer - so the
+       image and the mount read as the same material. Alpha-modulated
+       noise, not blended grey: on a surface this light, overlay and
+       soft-light compress it to nothing. */
+    body.clay .clay-card::after {
       opacity: calc(var(--clay-grain) * 0.60);
-      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='g'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3' seed='2' stitchTiles='stitch'/%3E%3CfeColorMatrix type='matrix' values='0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0 0 0 -0.38'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23g)'/%3E%3C/svg%3E");
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='g'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3' seed='2' stitchTiles='stitch'/%3E%3CfeColorMatrix type='matrix' values='0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0 0 0 -0.38'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23g)'/%3E%3C/svg%3E"), url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='g'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3' seed='7' stitchTiles='stitch'/%3E%3CfeColorMatrix type='matrix' values='0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0.75 0 0 0 -0.285'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23g)'/%3E%3C/svg%3E");
+      background-size: 200px 200px, 200px 200px;
     }
 
-    body.clay .clay-card::after {       /* light specks */
-      opacity: calc(var(--clay-grain) * 0.45);
-      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='g'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3' seed='7' stitchTiles='stitch'/%3E%3CfeColorMatrix type='matrix' values='0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 1 0 0 0 -0.38'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23g)'/%3E%3C/svg%3E");
-    }
-
-    /* the image rests flat on the pad - no shadow of its own, since
-       most of these files already carry a white margin of their own */
     body.clay .slider .magnifier-container .clay-card img {
       width: auto;
       max-width: var(--clay-img-max-w);
@@ -490,21 +504,25 @@
 
     @media (max-width: 992px) {
       body.clay {
-        --clay-mat:    30px;
+        --clay-mat:    20px;
         --clay-gutter: 34px;
         --clay-radius: 24px;
         --clay-offset: 20px;
         --clay-blur:   34px;
+        --clay-bevel:      18px;
+        --clay-bevel-blur: 30px;
       }
     }
 
     @media (max-width: 576px) {
       body.clay {
-        --clay-mat:       18px;
+        --clay-mat:       14px;
         --clay-gutter:    24px;
         --clay-radius:    18px;
         --clay-offset:    14px;
         --clay-blur:      24px;
+        --clay-bevel:      12px;
+        --clay-bevel-blur: 20px;
         --clay-img-max-h: 58vh;
       }
     }
