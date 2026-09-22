@@ -378,12 +378,19 @@
 
       /* geometry */
       --clay-radius:      42px;
-      --clay-mat:         26px;
+      --clay-mat:         10px;
       /* keep the neighbouring card's bleed (offset + blur) out of view */
       --clay-gutter:      48px;
-      --clay-img-radius:  6px;
-      /* how far the image dissolves into the card face */
-      --clay-fade:        9%;
+      --clay-img-radius:  var(--clay-radius);
+      /* the dissolve: a face-coloured vignette that follows the card's
+         border-radius, so corners blend at the same rate as edges. A
+         mask of two intersected ramps multiplies alpha, which fades
+         corners as the square and leaves the gap they showed. */
+      --clay-dissolve:        150px;
+      /* spread matters: with zero spread an inset shadow only reaches
+         50% at the edge (half the blur falls outside the box), so the
+         image stayed visible right up to the rim */
+      --clay-dissolve-spread: 30px;
       --clay-grain:       0.55;
       /* breathing room for the shadow: it reaches offset + about half
          the blur past the card edge */
@@ -457,8 +464,11 @@
        so card and image become one continuous surface. */
     body.clay .clay-card::before {
       box-shadow:
+        /* rim first - box-shadow paints earlier entries on top */
         inset var(--clay-bevel) var(--clay-bevel) var(--clay-bevel-blur) var(--clay-bevel-light),
-        inset calc(-1 * var(--clay-bevel)) calc(-1 * var(--clay-bevel)) var(--clay-bevel-blur) var(--clay-bevel-dark);
+        inset calc(-1 * var(--clay-bevel)) calc(-1 * var(--clay-bevel)) var(--clay-bevel-blur) var(--clay-bevel-dark),
+        /* then the dissolve, following the same rounded rect */
+        inset 0 0 var(--clay-dissolve) var(--clay-dissolve-spread) var(--clay-face);
     }
 
     /* Grain - dark specks and light specks stacked in one layer - so the
@@ -480,49 +490,67 @@
       display: block;
       border-radius: var(--clay-img-radius);
 
-      /* two axis ramps intersected = a soft-edged rectangle. The stops
-         are eased, not linear, so the falloff has no visible shoulder. */
-      --ramp: transparent 0%,
-              rgba(0,0,0,0.10) calc(var(--clay-fade) * 0.30),
-              rgba(0,0,0,0.38) calc(var(--clay-fade) * 0.55),
-              rgba(0,0,0,0.72) calc(var(--clay-fade) * 0.78),
-              rgba(0,0,0,0.93) calc(var(--clay-fade) * 0.91),
-              #000 var(--clay-fade),
-              #000 calc(100% - var(--clay-fade)),
-              rgba(0,0,0,0.93) calc(100% - var(--clay-fade) * 0.91),
-              rgba(0,0,0,0.72) calc(100% - var(--clay-fade) * 0.78),
-              rgba(0,0,0,0.38) calc(100% - var(--clay-fade) * 0.55),
-              rgba(0,0,0,0.10) calc(100% - var(--clay-fade) * 0.30),
-              transparent 100%;
-      -webkit-mask-image: linear-gradient(to right, var(--ramp)),
-                          linear-gradient(to bottom, var(--ramp));
-              mask-image: linear-gradient(to right, var(--ramp)),
-                          linear-gradient(to bottom, var(--ramp));
-      -webkit-mask-composite: source-in;
-              mask-composite: intersect;
+    }
+
+    /*────────────────────────────────────────────────────────
+      DARK  ·  same form, inverted ground
+
+      Neumorphism does not invert by swapping black for white: on a
+      dark ground the highlight has far less headroom than the shadow,
+      so the light rim carries a much lower alpha and the dark one a
+      higher alpha than their light-mode counterparts.
+    ────────────────────────────────────────────────────────*/
+    @media (prefers-color-scheme: dark) {
+      body.clay {
+        --clay-bg:          #24262A;
+        --clay-face:        #2A2C31;   /* grain lightens on dark, so the face starts lower */
+
+        --clay-light:       rgba(255, 255, 255, 0.055);
+        --clay-dark:        rgba(0, 0, 0, 0.55);
+
+        --clay-bevel-light: rgba(255, 255, 255, 0.075);
+        --clay-bevel-dark:  rgba(0, 0, 0, 0.42);
+
+        --clay-grain:       0.40;
+      }
+
+      /* on a dark ground the light specks carry the texture */
+      body.clay .clay-card::after {
+        opacity: calc(var(--clay-grain) * 0.75);
+      }
+
+      body.clay header.project-header { background-color: var(--clay-bg); }
+      body.clay #project-details-container { background: rgba(42, 44, 49, 0.94); }
+      body.clay .desc,
+      body.clay .info,
+      body.clay h2.sub-header,
+      body.clay .play-title,
+      body.clay .header-right { color: #9AA0A6; }
     }
 
     @media (max-width: 992px) {
       body.clay {
-        --clay-mat:    20px;
+        --clay-mat:    0px;
         --clay-gutter: 34px;
         --clay-radius: 24px;
         --clay-offset: 20px;
         --clay-blur:   34px;
         --clay-bevel:      18px;
         --clay-bevel-blur: 30px;
+        --clay-dissolve:   110px;
       }
     }
 
     @media (max-width: 576px) {
       body.clay {
-        --clay-mat:       14px;
+        --clay-mat:       0px;
         --clay-gutter:    24px;
         --clay-radius:    18px;
         --clay-offset:    14px;
         --clay-blur:      24px;
         --clay-bevel:      12px;
         --clay-bevel-blur: 20px;
+        --clay-dissolve:   78px;
         --clay-img-max-h: 58vh;
       }
     }
