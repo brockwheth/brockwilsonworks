@@ -345,9 +345,115 @@
       z-index: 20;
     }
 
+    /*────────────────────────────────────────────────────────
+      CLAY  ·  extruded image cards (stepwell pilot)
+      Translated from the neumorphism spec to the site's
+      neutral palette. Every value is a variable so the
+      look can be tuned in one place.
+    ────────────────────────────────────────────────────────*/
+    body.clay {
+      /* surfaces - the page sits DARKER than the card face,
+         which is what makes the card read as extruded.
+         Mirrors the reference's value relationships. */
+      --clay-bg:          #DCDEE3;
+      --clay-face-top:    #EBEDF1;
+      --clay-face-bottom: #DFE2E7;
+      --clay-border:      #FFFFFF;
+
+      /* shadows: light above, dark below */
+      --clay-lift:        30px;
+      --clay-blur:        60px;
+      --clay-light:       rgba(255, 255, 255, 0.85);
+      --clay-dark:        rgba(126, 136, 152, 0.55);
+
+      /* the image rests ON the mount, so it casts its own small shadow */
+      --clay-img-shadow:  0 2px 6px rgba(120, 129, 145, 0.30);
+
+      /* geometry */
+      --clay-radius:      28px;
+      --clay-mat:         32px;   /* card surface visible around the image */
+      --clay-gutter:      48px;   /* keeps a neighbour's blur out of view */
+      --clay-img-radius:  10px;
+      --clay-img-max-h:   66vh;
+      /* definite width for the image, so the shrink-wrapping card has
+         something to resolve against (a percentage here is cyclic and
+         blows the card past the viewport on narrow screens) */
+      --clay-track:       min(900px, calc(100vw - 40px));  /* 900px cap, minus main's side padding */
+      --clay-img-max-w:   calc(var(--clay-track) - 2 * (var(--clay-gutter) + var(--clay-mat)) - 4px);
+
+      background-color: var(--clay-bg);
+    }
+
+    /* chrome stays flat - just stop the header reading as a white band */
+    body.clay header.project-header { background-color: var(--clay-bg); }
+    body.clay #project-details-container { background: rgba(242, 243, 245, 0.92); }
+
+    /* room for the vertical shadows inside the slider's clip box */
+    body.clay .slider-container {
+      overflow: hidden;
+      padding: calc(var(--clay-lift) + var(--clay-blur)) 0;
+      margin: 20px auto;
+      width: 100%;
+      box-sizing: border-box;
+    }
+
+    body.clay .slider .magnifier-container {
+      align-items: center;
+      justify-content: center;
+    }
+
+    /* the extruded card itself */
+    body.clay .clay-card {
+      display: inline-flex;
+      margin: 0 var(--clay-gutter);
+      padding: var(--clay-mat);
+      border-radius: var(--clay-radius);
+      border: 1px solid var(--clay-border);
+      background: linear-gradient(180deg, var(--clay-face-top) 0%, var(--clay-face-bottom) 100%);
+      box-shadow:
+        0 calc(-1 * var(--clay-lift)) var(--clay-blur) var(--clay-light),
+        0 var(--clay-lift) var(--clay-blur) var(--clay-dark);
+      box-sizing: border-box;
+      min-width: 0;
+      max-width: 100%;
+    }
+
+    /* the image sits on the mount, not bleeding to the edge */
+    body.clay .slider .magnifier-container .clay-card img {
+      width: auto;
+      max-width: var(--clay-img-max-w);
+      max-height: var(--clay-img-max-h);
+      flex: 0 1 auto;
+      object-fit: contain;
+      display: block;
+      border-radius: var(--clay-img-radius);
+      box-shadow: var(--clay-img-shadow);
+    }
+
+    @media (max-width: 992px) {
+      body.clay {
+        --clay-mat:    20px;
+        --clay-gutter: 28px;
+        --clay-radius: 20px;
+        --clay-lift:   20px;
+        --clay-blur:   40px;
+      }
+    }
+
+    @media (max-width: 576px) {
+      body.clay {
+        --clay-mat:       12px;
+        --clay-gutter:    14px;
+        --clay-radius:    16px;
+        --clay-lift:      14px;
+        --clay-blur:      28px;
+        --clay-img-max-h: 58vh;
+      }
+    }
+
   </style>
 </head>
-<body>
+<body class="clay">
   <header class="project-header">
     <!-- Left-aligned title -->
     <h1 class="play-title" onclick="location.href='../../index.html'">BROCK WILSON HETHERINGTON</h1>
@@ -405,43 +511,69 @@
       <div class="slider-wrapper" id="sliderWrapper">
         <div class="slider" id="slider">
           <div class="magnifier-container">
-            <img src="portrait_model.webp" alt="Stepwell Model" />
+            <figure class="clay-card">
+              <img src="portrait_model.webp" alt="Stepwell Model" />
+            </figure>
           </div>
           <div class="magnifier-container">
-            <img src="landscape_model.webp" alt="Stepwell Model" />
+            <figure class="clay-card">
+              <img src="landscape_model.webp" alt="Stepwell Model" />
+            </figure>
           </div>
           <div class="magnifier-container">
-            <img src="landscape_model_2.webp" alt="Stepwell Model" />
+            <figure class="clay-card">
+              <img src="landscape_model_2.webp" alt="Stepwell Model" />
+            </figure>
           </div>
           <div class="magnifier-container">
-            <img src="exploded_iso.webp" alt="Exploded Iso" />
+            <figure class="clay-card">
+              <img src="exploded_iso.webp" alt="Exploded Iso" />
+            </figure>
           </div>
           <div class="magnifier-container">
-            <img src="process.webp" alt="Process Sketches" />
+            <figure class="clay-card">
+              <img src="process.webp" alt="Process Sketches" />
+            </figure>
           </div>
           <div class="magnifier-container">
-            <img src="elevation_1.webp" alt="Elevation" />
+            <figure class="clay-card">
+              <img src="elevation_1.webp" alt="Elevation" />
+            </figure>
           </div>
           <div class="magnifier-container">
-            <img src="elevation_2.webp" alt="Elevation" />
+            <figure class="clay-card">
+              <img src="elevation_2.webp" alt="Elevation" />
+            </figure>
           </div>
           <div class="magnifier-container">
-            <img src="sketch_1.webp" alt="Diagrams" />
+            <figure class="clay-card">
+              <img src="sketch_1.webp" alt="Diagrams" />
+            </figure>
           </div>
           <div class="magnifier-container">
-            <img src="sketch_2.webp" alt="Diagrams" />
+            <figure class="clay-card">
+              <img src="sketch_2.webp" alt="Diagrams" />
+            </figure>
           </div>
           <div class="magnifier-container">
-            <img src="moment_1.webp" alt="Render Moment" />
+            <figure class="clay-card">
+              <img src="moment_1.webp" alt="Render Moment" />
+            </figure>
           </div>
           <div class="magnifier-container">
-            <img src="moment_2.webp" alt="Render Moment" />
+            <figure class="clay-card">
+              <img src="moment_2.webp" alt="Render Moment" />
+            </figure>
           </div>
           <div class="magnifier-container">
-            <img src="moment_3.webp" alt="Render Moment" />
+            <figure class="clay-card">
+              <img src="moment_3.webp" alt="Render Moment" />
+            </figure>
           </div>
           <div class="magnifier-container">
-            <img src="site_plan.webp" alt="Site Plan" />
+            <figure class="clay-card">
+              <img src="site_plan.webp" alt="Site Plan" />
+            </figure>
           </div>
         </div>
         <button class="slider-btn prev" onclick="moveSlide(-1)">
