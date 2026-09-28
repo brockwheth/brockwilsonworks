@@ -345,192 +345,9 @@
       z-index: 20;
     }
 
-    /*────────────────────────────────────────────────────────
-      CLAY  ·  extruded image cards (stepwell pilot)
-
-      Per the reference spec: the card face is the SAME colour as
-      the page, with no gradient and no border. All of the form
-      comes from two diagonal shadows - white up-left, a cool dark
-      down-right at low opacity. A gradient or a light border is
-      what makes this read as glass instead of clay.
-    ────────────────────────────────────────────────────────*/
-    body.clay {
-      /* one surface colour for page and card alike */
-      --clay-bg:          #E5E5E5;
-      /* the grain darkens the face slightly, so the face is mixed a
-         touch lighter - it renders back to exactly --clay-bg */
-      --clay-face:        #EFEFEF;
-
-      /* shadow geometry: diagonal, per spec (X and Y both +/-30, blur 50) */
-      --clay-offset:      30px;
-      --clay-blur:        50px;
-      --clay-light:       rgba(255, 255, 255, 0.70);
-      --clay-dark:        rgba(13, 39, 80, 0.16);
-
-      /* inner bevel - the rim curving away, so the card reads as a
-         pillowed form rather than a flat slab with a cut edge. Lit on
-         the inner top-left, falling away on the inner bottom-right,
-         matching the outer light direction. */
-      --clay-bevel:       26px;
-      --clay-bevel-blur:  42px;
-      --clay-bevel-light: rgba(255, 255, 255, 0.85);
-      --clay-bevel-dark:  rgba(13, 39, 80, 0.10);
-
-      /* geometry */
-      --clay-radius:      42px;
-      --clay-mat:         10px;
-      /* keep the neighbouring card's bleed (offset + blur) out of view */
-      --clay-gutter:      48px;
-      --clay-img-radius:  var(--clay-radius);
-      /* the dissolve: a face-coloured vignette that follows the card's
-         border-radius, so corners blend at the same rate as edges. A
-         mask of two intersected ramps multiplies alpha, which fades
-         corners as the square and leaves the gap they showed. */
-      --clay-dissolve:        150px;
-      /* spread matters: with zero spread an inset shadow only reaches
-         50% at the edge (half the blur falls outside the box), so the
-         image stayed visible right up to the rim */
-      --clay-dissolve-spread: 30px;
-      --clay-grain:       0.55;
-      /* breathing room for the shadow: it reaches offset + about half
-         the blur past the card edge */
-      --clay-room:        calc(var(--clay-offset) + var(--clay-blur) * 0.6);
-      /* keep the whole card, shadows included, inside the viewport */
-      --clay-img-max-h:   min(62vh, calc(100vh - 2 * (var(--clay-room) + var(--clay-mat)) - 170px));
-      --clay-track:       min(900px, calc(100vw - 40px));
-      --clay-img-max-w:   calc(var(--clay-track) - 2 * (var(--clay-gutter) + var(--clay-mat)));
-
-      background-color: var(--clay-bg);
-    }
-
-    /* chrome stays flat - just keep the header on the same ground */
-    body.clay header.project-header { background-color: var(--clay-bg); }
-    body.clay #project-details-container { background: rgba(229, 229, 229, 0.94); }
-
-    /* room for the shadows inside the slider's clip box */
-    body.clay .slider-container {
-      overflow: hidden;   /* horizontal clipping for the carousel */
-      padding: 0;
-      margin: 20px auto;
-      width: 100%;
-      box-sizing: border-box;
-    }
-
-    body.clay .slider .magnifier-container {
-      align-items: center;
-      justify-content: center;
-      /* the base stylesheet clips this box (for the magnifier lens),
-         which cut the card's top and bottom shadows off flush - the
-         left and right survived only because the gutter sits inside
-         the slide. Let them out; .slider-container still does the
-         horizontal clipping for the carousel. */
-      overflow: visible;
-      padding: var(--clay-room) 0;
-      box-sizing: border-box;
-    }
-
-    /* the extruded pad: flat face, no border, form from shadow alone */
-    body.clay .clay-card {
-      display: inline-flex;
-      margin: 0 var(--clay-gutter);
-      padding: var(--clay-mat);
-      border-radius: var(--clay-radius);
-      background: var(--clay-face);
-      box-shadow:
-        /* the pad sitting above the page */
-        calc(-1 * var(--clay-offset)) calc(-1 * var(--clay-offset)) var(--clay-blur) var(--clay-light),
-        var(--clay-offset) var(--clay-offset) var(--clay-blur) var(--clay-dark);
-      box-sizing: border-box;
-      min-width: 0;
-      max-width: 100%;
-      position: relative;
-      isolation: isolate;   /* keep the grain blending inside the card */
-    }
-
-    /* Both overlays sit ABOVE the image, so the rim and the grain run
-       continuously across mount and picture alike. */
-    body.clay .clay-card::before,
-    body.clay .clay-card::after {
-      content: "";
-      position: absolute;
-      inset: 0;
-      border-radius: inherit;
-      pointer-events: none;
-      /* the card is an inline-flex container; without an explicit stacking
-         position these overlays paint UNDER the image and only ever show
-         in the mat ring, so neither the rim nor the grain reached the
-         picture at all */
-      z-index: 1;
-    }
-
-    /* The rim curving away. As an inset shadow on the card itself this
-       painted UNDER the image, which left the picture looking flush with
-       a flat face; on an overlay it washes over the image's own edges,
-       so card and image become one continuous surface. */
-    body.clay .clay-card::before {
-      box-shadow:
-        /* rim first - box-shadow paints earlier entries on top */
-        inset var(--clay-bevel) var(--clay-bevel) var(--clay-bevel-blur) var(--clay-bevel-light),
-        inset calc(-1 * var(--clay-bevel)) calc(-1 * var(--clay-bevel)) var(--clay-bevel-blur) var(--clay-bevel-dark),
-        /* then the dissolve, following the same rounded rect */
-        inset 0 0 var(--clay-dissolve) var(--clay-dissolve-spread) var(--clay-face);
-    }
-
-    /* Grain - dark specks and light specks stacked in one layer - so the
-       image and the mount read as the same material. Alpha-modulated
-       noise, not blended grey: on a surface this light, overlay and
-       soft-light compress it to nothing. */
-    body.clay .clay-card::after {
-      opacity: calc(var(--clay-grain) * 0.68);
-      /* one octave, 160 units drawn into an 80px tile. Extra octaves
-         stack low-frequency components that read as clumping rather
-         than grain, and the old 200px tile was upscaled on 2x
-         displays, which softened it further. */
-      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='g' color-interpolation-filters='sRGB'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='1' seed='2' stitchTiles='stitch'/%3E%3CfeColorMatrix type='matrix' values='0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0 0 0 -0.38'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23g)'/%3E%3C/svg%3E"), url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='g' color-interpolation-filters='sRGB'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='1' seed='7' stitchTiles='stitch'/%3E%3CfeColorMatrix type='matrix' values='0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0.75 0 0 0 -0.285'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23g)'/%3E%3C/svg%3E");
-      background-size: 80px 80px, 80px 80px;
-    }
-
-    body.clay .slider .magnifier-container .clay-card img {
-      width: auto;
-      max-width: var(--clay-img-max-w);
-      max-height: var(--clay-img-max-h);
-      flex: 0 1 auto;
-      object-fit: contain;
-      display: block;
-      border-radius: var(--clay-img-radius);
-
-    }
-
-    @media (max-width: 992px) {
-      body.clay {
-        --clay-mat:    0px;
-        --clay-gutter: 34px;
-        --clay-radius: 24px;
-        --clay-offset: 20px;
-        --clay-blur:   34px;
-        --clay-bevel:      18px;
-        --clay-bevel-blur: 30px;
-        --clay-dissolve:   110px;
-      }
-    }
-
-    @media (max-width: 576px) {
-      body.clay {
-        --clay-mat:       0px;
-        --clay-gutter:    24px;
-        --clay-radius:    18px;
-        --clay-offset:    14px;
-        --clay-blur:      24px;
-        --clay-bevel:      12px;
-        --clay-bevel-blur: 20px;
-        --clay-dissolve:   78px;
-        --clay-img-max-h: 58vh;
-      }
-    }
-
   </style>
 </head>
-<body class="clay">
+<body>
   <header class="project-header">
     <!-- Left-aligned title -->
     <h1 class="play-title" onclick="location.href='../../index.html'">BROCK WILSON HETHERINGTON</h1>
@@ -588,69 +405,43 @@
       <div class="slider-wrapper" id="sliderWrapper">
         <div class="slider" id="slider">
           <div class="magnifier-container">
-            <figure class="clay-card">
-              <img src="portrait_model.webp" alt="Stepwell Model" />
-            </figure>
+            <img src="portrait_model.webp" alt="Stepwell Model" />
           </div>
           <div class="magnifier-container">
-            <figure class="clay-card">
-              <img src="landscape_model.webp" alt="Stepwell Model" />
-            </figure>
+            <img src="landscape_model.webp" alt="Stepwell Model" />
           </div>
           <div class="magnifier-container">
-            <figure class="clay-card">
-              <img src="landscape_model_2.webp" alt="Stepwell Model" />
-            </figure>
+            <img src="landscape_model_2.webp" alt="Stepwell Model" />
           </div>
           <div class="magnifier-container">
-            <figure class="clay-card">
-              <img src="exploded_iso.webp" alt="Exploded Iso" />
-            </figure>
+            <img src="exploded_iso.webp" alt="Exploded Iso" />
           </div>
           <div class="magnifier-container">
-            <figure class="clay-card">
-              <img src="process.webp" alt="Process Sketches" />
-            </figure>
+            <img src="process.webp" alt="Process Sketches" />
           </div>
           <div class="magnifier-container">
-            <figure class="clay-card">
-              <img src="elevation_1.webp" alt="Elevation" />
-            </figure>
+            <img src="elevation_1.webp" alt="Elevation" />
           </div>
           <div class="magnifier-container">
-            <figure class="clay-card">
-              <img src="elevation_2.webp" alt="Elevation" />
-            </figure>
+            <img src="elevation_2.webp" alt="Elevation" />
           </div>
           <div class="magnifier-container">
-            <figure class="clay-card">
-              <img src="sketch_1.webp" alt="Diagrams" />
-            </figure>
+            <img src="sketch_1.webp" alt="Diagrams" />
           </div>
           <div class="magnifier-container">
-            <figure class="clay-card">
-              <img src="sketch_2.webp" alt="Diagrams" />
-            </figure>
+            <img src="sketch_2.webp" alt="Diagrams" />
           </div>
           <div class="magnifier-container">
-            <figure class="clay-card">
-              <img src="moment_1.webp" alt="Render Moment" />
-            </figure>
+            <img src="moment_1.webp" alt="Render Moment" />
           </div>
           <div class="magnifier-container">
-            <figure class="clay-card">
-              <img src="moment_2.webp" alt="Render Moment" />
-            </figure>
+            <img src="moment_2.webp" alt="Render Moment" />
           </div>
           <div class="magnifier-container">
-            <figure class="clay-card">
-              <img src="moment_3.webp" alt="Render Moment" />
-            </figure>
+            <img src="moment_3.webp" alt="Render Moment" />
           </div>
           <div class="magnifier-container">
-            <figure class="clay-card">
-              <img src="site_plan.webp" alt="Site Plan" />
-            </figure>
+            <img src="site_plan.webp" alt="Site Plan" />
           </div>
         </div>
         <button class="slider-btn prev" onclick="moveSlide(-1)">
